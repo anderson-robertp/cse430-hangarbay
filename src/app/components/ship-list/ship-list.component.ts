@@ -14,14 +14,17 @@ export class ShipListComponent implements OnInit{
   constructor(private shipService: ShipService) { }
 
   ngOnInit(): void {
-    this.shipService.getShips().subscribe((data) => {
+    /*this.shipService.getShips().subscribe((data) => {
       this.ships = data;
-    });
+    });*/
+    this.ships = this.shipService.getMockShips()
+    
+
   }
 
-  deleteShip(id: string): void {
+  deleteShip(id: number): void {
     this.shipService.deleteShip(id).subscribe(() => {
-      this.ships = this.ships.filter(ship => ship._id !== id);
+      this.ships = this.ships.filter(ship => ship.id !== id);
     });
   }
 }

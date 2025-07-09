@@ -1,0 +1,601 @@
+[
+  {
+    "name": "X-wing",
+    "faction": [
+      "Rebel Alliance"
+    ],
+    "attack": 3,
+    "agility": 2,
+    "hull": 3,
+    "shields": 2,
+    "actions": [
+      "Focus",
+      "Target Lock"
+    ],
+    "maneuvers": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        2,
+        2,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        2,
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        3
+      ]
+    ],
+    "size": "small",
+    "xws": "xwing",
+    "id": 0,
+    "firing_arcs": [
+      "Front"
+    ],
+    "dial": [
+      "1BG",
+      "1FG",
+      "1NG",
+      "2TW",
+      "2BW",
+      "2FG",
+      "2NW",
+      "2YW",
+      "3TW",
+      "3BW",
+      "3FW",
+      "3NW",
+      "3YW",
+      "4FW",
+      "4KR"
+    ]
+  },
+  {
+    "name": "Y-wing",
+    "faction": [
+      "Rebel Alliance",
+      "Scum and Villainy"
+    ],
+    "attack": 2,
+    "agility": 1,
+    "hull": 5,
+    "shields": 3,
+    "actions": [
+      "Focus",
+      "Target Lock"
+    ],
+    "maneuvers": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        2,
+        1,
+        1,
+        0
+      ],
+      [
+        3,
+        1,
+        1,
+        1,
+        3,
+        0
+      ],
+      [
+        0,
+        0,
+        3,
+        0,
+        0,
+        3
+      ]
+    ],
+    "size": "small",
+    "xws": "ywing",
+    "id": 1,
+    "firing_arcs": [
+      "Front"
+    ],
+    "dial": [
+      "1BW",
+      "1FG",
+      "1NW",
+      "2TW",
+      "2BW",
+      "2FG",
+      "2NW",
+      "2YW",
+      "3TR",
+      "3BW",
+      "3FW",
+      "3NW",
+      "3YR",
+      "4FR",
+      "4KR"
+    ]
+  },
+  {
+    "name": "A-wing",
+    "faction": [
+      "Rebel Alliance"
+    ],
+    "attack": 2,
+    "agility": 3,
+    "hull": 2,
+    "shields": 2,
+    "actions": [
+      "Focus",
+      "Target Lock",
+      "Boost",
+      "Evade"
+    ],
+    "maneuvers": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        2,
+        2,
+        2,
+        2,
+        2,
+        0
+      ],
+      [
+        1,
+        1,
+        2,
+        1,
+        1,
+        3
+      ],
+      [
+        0,
+        0,
+        2,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        2,
+        0,
+        0,
+        3
+      ]
+    ],
+    "size": "small",
+    "xws": "awing",
+    "id": 2,
+    "firing_arcs": [
+      "Front"
+    ],
+    "dial": [
+      "1TW",
+      "1YW",
+      "2TG",
+      "2BG",
+      "2FG",
+      "2NG",
+      "2YG",
+      "3TW",
+      "3BW",
+      "3FG",
+      "3NW",
+      "3YW",
+      "3KR",
+      "4FG",
+      "5FG",
+      "5KR"
+    ]
+  },
+  {
+    "name": "YT-1300",
+    "faction": [
+      "Rebel Alliance",
+      "Resistance"
+    ],
+    "attack": 3,
+    "agility": 1,
+    "hull": 8,
+    "shields": 5,
+    "actions": [
+      "Focus",
+      "Target Lock"
+    ],
+    "maneuvers": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        2,
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1,
+        1,
+        0,
+        3
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        3
+      ]
+    ],
+    "size": "large",
+    "xws": "yt1300",
+    "id": 3,
+    "firing_arcs": [
+      "Front",
+      "Turret"
+    ],
+    "dial": [
+      "1TW",
+      "1BG",
+      "1FG",
+      "1NG",
+      "1YW",
+      "2TW",
+      "2BW",
+      "2FG",
+      "2NW",
+      "2YW",
+      "3BW",
+      "3FW",
+      "3NW",
+      "3KR",
+      "4FW",
+      "4KR"
+    ]
+  },
+  {
+    "name": "TIE Fighter",
+    "faction": [
+      "Galactic Empire",
+      "Rebel Alliance"
+    ],
+    "attack": 2,
+    "agility": 3,
+    "hull": 3,
+    "shields": 0,
+    "actions": [
+      "Focus",
+      "Barrel Roll",
+      "Evade"
+    ],
+    "maneuvers": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        2,
+        1,
+        1,
+        3
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        3
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    ],
+    "size": "small",
+    "xws": "tiefighter",
+    "id": 4,
+    "firing_arcs": [
+      "Front"
+    ],
+    "dial": [
+      "1TW",
+      "1YW",
+      "2TW",
+      "2BG",
+      "2FG",
+      "2NG",
+      "2YW",
+      "3TW",
+      "3BW",
+      "3FG",
+      "3NW",
+      "3YW",
+      "3KR",
+      "4FW",
+      "4KR",
+      "5FW"
+    ]
+  },
+  {
+    "name": "TIE Advanced",
+    "faction": [
+      "Galactic Empire"
+    ],
+    "attack": 2,
+    "agility": 3,
+    "hull": 3,
+    "shields": 2,
+    "actions": [
+      "Focus",
+      "Target Lock",
+      "Barrel Roll",
+      "Evade"
+    ],
+    "maneuvers": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        0,
+        2,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        2,
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        2,
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        3
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    ],
+    "size": "small",
+    "xws": "tieadvanced",
+    "id": 5,
+    "firing_arcs": [
+      "Front"
+    ],
+    "dial": [
+      "1BG",
+      "1NG",
+      "2TW",
+      "2BW",
+      "2FG",
+      "2NW",
+      "2YW",
+      "3TW",
+      "3BW",
+      "3FG",
+      "3NW",
+      "3YW",
+      "4FW",
+      "4KR",
+      "5FW"
+    ]
+  },
+  {
+    "name": "TIE Interceptor",
+    "faction": [
+      "Galactic Empire"
+    ],
+    "attack": 3,
+    "agility": 3,
+    "hull": 3,
+    "shields": 0,
+    "actions": [
+      "Focus",
+      "Barrel Roll",
+      "Boost",
+      "Evade"
+    ],
+    "maneuvers": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        2,
+        2,
+        2,
+        2,
+        2,
+        0
+      ],
+      [
+        1,
+        1,
+        2,
+        1,
+        1,
+        3
+      ],
+      [
+        0,
+        0,
+        2,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        3
+      ]
+    ],
+    "size": "small",
+    "xws": "tieinterceptor",
+    "id": 6,
+    "firing_arcs": [
+      "Front"
+    ],
+    "dial": [
+      "1TW",
+      "1YW",
+      "2TG",
+      "2BG",
+      "2FG",
+      "2NG",
+      "2YG",
+      "3TW",
+      "3BW",
+      "3FG",
+      "3NW",
+      "3YW",
+      "3KR",
+      "4FG",
+      "5FW",
+      "5KR"
+    ]
+  }]

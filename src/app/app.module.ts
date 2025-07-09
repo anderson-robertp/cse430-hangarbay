@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { HeaderComponent } from './header/header.component';
 import { ShipListComponent } from './components/ship-list/ship-list.component';
 import { AddShipComponent } from './components/add-ship/add-ship.component';
 
@@ -13,6 +14,7 @@ import { AddShipComponent } from './components/add-ship/add-ship.component';
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
     ShipListComponent,
     AddShipComponent
   ],

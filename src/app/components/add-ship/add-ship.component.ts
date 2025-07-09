@@ -10,26 +10,81 @@ import { Ship } from '/Code/cse430-hangarbay/src/app/models/ship.model';
 })
 export class AddShipComponent {
   newShip: Ship = {
+    id: 0,
     name: '',
-    faction: 'Rebel',
-    quantity: 1,
-    pilots: []
+    faction: [],
+    attack: 0,
+    agility: 0,
+    hull: 0,
+    shields: 0,
+    actions: [],
+    maneuvers: [[], [], [], [], []],
+    size: 'small',
+    xws: '',
+    firing_arcs: [],
+    dial: []
   };
 
-  pilotInput = '';
+  factionInput = '';
+  actionInput = '';
+  arcInput = '';
+  dialInput = '';
+  maneuverInput: number[] = [];
 
   constructor(private shipService: ShipService) {}
 
-  addPilot(): void {
-    if (this.pilotInput.trim()) {
-      this.newShip.pilots.push(this.pilotInput.trim());
-      this.pilotInput = '';
+  addFaction(): void {
+    if (this.factionInput.trim()) {
+      this.newShip.faction.push(this.factionInput.trim());
+      this.factionInput = '';
+    }
+  }
+
+  addAction(): void {
+    if (this.actionInput.trim()) {
+      this.newShip.actions.push(this.actionInput.trim());
+      this.actionInput = '';
+    }
+  }
+
+  addArc(): void {
+    if (this.arcInput.trim()) {
+      this.newShip.firing_arcs.push(this.arcInput.trim());
+      this.arcInput = '';
+    }
+  }
+
+  addDial(): void {
+    if (this.dialInput.trim()) {
+      this.newShip.dial.push(this.dialInput.trim());
+      this.dialInput = '';
+    }
+  }
+
+  addManeuverRow(): void {
+    if (this.maneuverInput.length) {
+      this.newShip.maneuvers.push([...this.maneuverInput]);
+      this.maneuverInput = [];
     }
   }
 
   onSubmit(): void {
     this.shipService.addShip(this.newShip).subscribe(() => {
-      this.newShip = { name: '', faction: 'Rebel', quantity: 1, pilots: [] };
+      this.newShip = {
+        id: 0,
+        name: '',
+        faction: [],
+        attack: 0,
+        agility: 0,
+        hull: 0,
+        shields: 0,
+        actions: [],
+        maneuvers: [[], [], [], [], []],
+        size: 'small',
+        xws: '',
+        firing_arcs: [],
+        dial: []
+      };
     });
   }
 }

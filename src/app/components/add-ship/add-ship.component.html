@@ -1,19 +1,100 @@
-<h2>Add New Ship</h2>
-<form (ngSubmit)="onSubmit()">
-  <input type="text" [(ngModel)]="newShip.name" name="name" placeholder="Ship Name" required />
-  
-  <select [(ngModel)]="newShip.faction" name="faction">
-    <option *ngFor="let faction of ['Rebel', 'Imperial', 'Scum', 'Republic', 'Separatist', 'Resistance', 'First Order']" [value]="faction">{{ faction }}</option>
-  </select>
-  
-  <input type="number" [(ngModel)]="newShip.quantity" name="quantity" placeholder="Quantity" min="1" required />
+<div class="container mt-4">
+  <h2 class="mb-4">Add New Ship</h2>
+  <form (ngSubmit)="onSubmit()" class="row g-3">
 
-  <input type="text" [(ngModel)]="pilotInput" placeholder="Add Pilot" />
-  <button type="button" (click)="addPilot()">Add Pilot</button>
+    <!-- Ship Name -->
+    <div class="col-md-6">
+      <label class="form-label">Ship Name</label>
+      <input type="text" class="form-control" [(ngModel)]="newShip.name" name="name" required />
+    </div>
 
-  <ul>
-    <li *ngFor="let pilot of newShip.pilots">{{ pilot }}</li>
-  </ul>
+    <!-- XWS Code -->
+    <div class="col-md-6">
+      <label class="form-label">XWS Code</label>
+      <input type="text" class="form-control" [(ngModel)]="newShip.xws" name="xws" />
+    </div>
 
-  <button type="submit">Add Ship</button>
-</form>
+    <!-- Faction -->
+    <div class="col-md-6">
+      <label class="form-label">Faction</label>
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="factionInput" name="factionInput" placeholder="Enter faction" />
+        <button class="btn btn-outline-primary" type="button" (click)="addFaction()">Add</button>
+      </div>
+      <div class="form-text">Current: {{ newShip.faction.join(', ') }}</div>
+    </div>
+
+    <!-- Firing Arcs -->
+    <div class="col-md-6">
+      <label class="form-label">Firing Arcs</label>
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="arcInput" name="arcInput" placeholder="e.g. Front" />
+        <button class="btn btn-outline-primary" type="button" (click)="addArc()">Add</button>
+      </div>
+      <div class="form-text">Current: {{ newShip.firing_arcs.join(', ') }}</div>
+    </div>
+
+    <!-- Actions -->
+    <div class="col-md-6">
+      <label class="form-label">Actions</label>
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="actionInput" name="actionInput" placeholder="e.g. Focus" />
+        <button class="btn btn-outline-primary" type="button" (click)="addAction()">Add</button>
+      </div>
+      <div class="form-text">Current: {{ newShip.actions.join(', ') }}</div>
+    </div>
+
+    <!-- Dial Maneuvers -->
+    <div class="col-md-6">
+      <label class="form-label">Dial Maneuvers</label>
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="dialInput" name="dialInput" placeholder="e.g. 2TW" />
+        <button class="btn btn-outline-primary" type="button" (click)="addDial()">Add</button>
+      </div>
+      <div class="form-text">Current: {{ newShip.dial.join(', ') }}</div>
+    </div>
+
+    <!-- Stats -->
+    <div class="col-md-2">
+      <label class="form-label">Attack</label>
+      <input type="number" class="form-control" [(ngModel)]="newShip.attack" name="attack" min="0" />
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Agility</label>
+      <input type="number" class="form-control" [(ngModel)]="newShip.agility" name="agility" min="0" />
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Hull</label>
+      <input type="number" class="form-control" [(ngModel)]="newShip.hull" name="hull" min="0" />
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Shields</label>
+      <input type="number" class="form-control" [(ngModel)]="newShip.shields" name="shields" min="0" />
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Size</label>
+      <select class="form-select" [(ngModel)]="newShip.size" name="size">
+        <option value="small">Small</option>
+        <option value="medium">Medium</option>
+        <option value="large">Large</option>
+      </select>
+    </div>
+
+    <!-- Maneuvers Matrix -->
+    <div class="col-12">
+      <label class="form-label">Add Maneuver Row (6 numbers)</label>
+      <div class="input-group mb-2">
+        <input type="number" class="form-control" *ngFor="let i of [0,1,2,3,4,5]; let idx = index"
+               [(ngModel)]="maneuverInput[idx]" name="maneuver{{idx}}" min="0" />
+        <button class="btn btn-outline-success" type="button" (click)="addManeuverRow()">Add Row</button>
+      </div>
+      <div class="form-text">Current Maneuvers:</div>
+      <pre class="bg-light p-2">{{ newShip.maneuvers | json }}</pre>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Submit Ship</button>
+    </div>
+  </form>
+</div>

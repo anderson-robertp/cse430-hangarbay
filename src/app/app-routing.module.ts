@@ -3,10 +3,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ShipListComponent } from './components/ship-list/ship-list.component';
 import { AddShipComponent } from './components/add-ship/add-ship.component';
+import { FleetsComponent } from './components/fleets/fleets.component';
 
 const routes: Routes = [
-  { path: '', component: ShipListComponent },
-  { path: 'add', component: AddShipComponent }
+  { path: 'ships', component: ShipListComponent },
+  { path: 'add', component: AddShipComponent },
+  { path: '', redirectTo: '/ships', pathMatch: 'full' },
+  { path: 'fleets', component: FleetsComponent },
 ];
 
 @NgModule({

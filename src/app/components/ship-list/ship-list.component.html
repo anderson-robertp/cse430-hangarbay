@@ -1,0 +1,7 @@
+<h2>My X-Wing Ships</h2>
+<ul>
+  <li *ngFor="let ship of ships">
+    {{ ship.name }} ({{ ship.faction }}) – Qty: {{ ship.quantity }}
+    <button (click)="deleteShip(ship._id!)">Delete</button>
+  </li>
+</ul>

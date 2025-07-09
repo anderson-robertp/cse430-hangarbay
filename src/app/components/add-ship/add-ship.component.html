@@ -1,0 +1,19 @@
+<h2>Add New Ship</h2>
+<form (ngSubmit)="onSubmit()">
+  <input type="text" [(ngModel)]="newShip.name" name="name" placeholder="Ship Name" required />
+  
+  <select [(ngModel)]="newShip.faction" name="faction">
+    <option *ngFor="let faction of ['Rebel', 'Imperial', 'Scum', 'Republic', 'Separatist', 'Resistance', 'First Order']" [value]="faction">{{ faction }}</option>
+  </select>
+  
+  <input type="number" [(ngModel)]="newShip.quantity" name="quantity" placeholder="Quantity" min="1" required />
+
+  <input type="text" [(ngModel)]="pilotInput" placeholder="Add Pilot" />
+  <button type="button" (click)="addPilot()">Add Pilot</button>
+
+  <ul>
+    <li *ngFor="let pilot of newShip.pilots">{{ pilot }}</li>
+  </ul>
+
+  <button type="submit">Add Ship</button>
+</form>

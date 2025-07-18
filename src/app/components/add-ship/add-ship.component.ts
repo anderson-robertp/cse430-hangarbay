@@ -31,7 +31,24 @@ export class AddShipComponent {
   dialInput = '';
   maneuverInput: number[] = [];
 
+  catalog: Ship[] = [];
+
+  selectedShipId: number = -1;
+
   constructor(private shipService: ShipService) {}
+
+  ngOnInit(): void {
+    this. catalog = this.shipService.getCatalog();
+  }
+
+  addShipFromCatalog() {
+  const shipToAdd = this.catalog.find(s => s.id === this.selectedShipId);
+  if (shipToAdd) {
+    this.shipService.addShip(shipToAdd).subscribe(() => {
+      // Refresh list or show confirmation
+    });
+  }
+}
 
   addFaction(): void {
     if (this.factionInput.trim()) {

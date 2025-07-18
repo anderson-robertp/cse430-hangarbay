@@ -17,7 +17,7 @@ export class ShipListComponent implements OnInit{
     /*this.shipService.getShips().subscribe((data) => {
       this.ships = data;
     });*/
-    this.ships = this.shipService.getMockShips()
+    this.ships = this.shipService.getInventory()
     
 
   }

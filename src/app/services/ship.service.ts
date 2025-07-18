@@ -12,7 +12,11 @@ export class ShipService {
 
   constructor(private http: HttpClient) { }
 
-  getMockShips(): Ship[] {
+  getCatalog(): Ship[] {
+    return MOCKSHIPLIST;
+  }
+
+  getInventory(): Ship[] {
     return MOCKSHIPLIST
   }
 

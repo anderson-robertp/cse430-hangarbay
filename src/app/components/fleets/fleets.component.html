@@ -1,1 +1,16 @@
-<p>fleets works!</p>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <app-fleet-list>
+      </app-fleet-list>
+    </div>
+    <div class="col-md-6">
+      <app-fleet-edit
+        *ngIf="selectedFleet"
+        [fleet]="selectedFleet"
+        (saveFleet)="onFleetSaved($event)">
+      </app-fleet-edit>
+    </div>
+  </div>
+</div>
+

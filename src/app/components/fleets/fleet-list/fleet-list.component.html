@@ -1,1 +1,8 @@
-<p>fleet-list works!</p>
+<ul class="list-group">
+  <app-fleet-item
+    *ngFor="let fleet of fleets"
+    [fleet]="fleet"
+    (select)="select.emit(fleet)"
+    (delete)="delete.emit(fleet)">
+  </app-fleet-item>
+</ul>

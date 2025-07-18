@@ -1,1 +1,17 @@
-<p>fleet-edit works!</p>
+<form (submit)="save()">
+  <div class="form-group">
+    <input type="text" [(ngModel)]="fleet.name" name="fleetName" class="form-control" placeholder="Fleet Name" required />
+  </div>
+
+  <label>Ships:</label>
+  <div class="form-check" *ngFor="let ship of inventory">
+    <input
+      type="checkbox"
+      class="form-check-input"
+      [checked]="isShipInFleet(ship)"
+      (change)="toggleShip(ship)">
+    {{ ship.name }}
+  </div>
+
+  <button class="btn btn-primary mt-2">Save Fleet</button>
+</form>

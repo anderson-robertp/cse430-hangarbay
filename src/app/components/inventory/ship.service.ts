@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Ship } from '../components/inventory/ship.model';
+import { Ship } from './ship.model';
 import { Observable } from 'rxjs';
 import  MOCKSHIPLIST  from './MOCKSHIPLIST.json';
 

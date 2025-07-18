@@ -10,6 +10,14 @@ import { HeaderComponent } from './header/header.component';
 import { ShipListComponent } from './components/inventory/ship-list/ship-list.component';
 import { AddShipComponent } from './components/inventory/add-ship/add-ship.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
+import { FleetsComponent } from './components/fleets/fleets.component';
+import { FleetListComponent } from './components/fleets/fleet-list/fleet-list.component';
+import { FleetEditComponent } from './components/fleets/fleet-edit/fleet-edit.component';
+import { FleetItemComponent } from './components/fleets/fleet-item/fleet-item.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { ChatListComponent } from './components/chat/chat-list/chat-list.component';
+import { ChatEditComponent } from './components/chat/chat-edit/chat-edit.component';
+import { ChatItemComponent } from './components/chat/chat-item/chat-item.component';
 
 
 @NgModule({
@@ -18,7 +26,15 @@ import { InventoryComponent } from './components/inventory/inventory.component';
     InventoryComponent,
     HeaderComponent,
     ShipListComponent,
-    AddShipComponent
+    AddShipComponent,
+    FleetsComponent,
+    FleetListComponent,
+    FleetEditComponent,
+    FleetItemComponent,
+    ChatComponent,
+    ChatListComponent,
+    ChatEditComponent,
+    ChatItemComponent
   ],
   imports: [
     BrowserModule,

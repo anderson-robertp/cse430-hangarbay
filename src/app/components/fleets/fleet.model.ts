@@ -4,6 +4,6 @@ import { Ship } from '../inventory/ship.model';
 export interface Fleet {
   id: number;
   name: string;
-  ships: Ship[];
+  ships: string[];
   notes?: string;
 }

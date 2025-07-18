@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ShipService } from '/Code/cse430-hangarbay/src/app/services/ship.service';
-import { Ship } from '/Code/cse430-hangarbay/src/app/models/ship.model';
+import { ShipService } from '../ship.service';
+import { Ship } from '../ship.model';
 
 @Component({
   selector: 'app-ship-list',

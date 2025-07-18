@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-chat-edit',
-  imports: [],
+  standalone: false,
   templateUrl: './chat-edit.component.html',
   styleUrl: './chat-edit.component.scss'
 })

@@ -1,0 +1,39 @@
+[
+  {
+    "id": 1,
+    "name": "Red Squadron",
+    "ships": [
+      "xwing",
+      "xwing",
+      "ywing"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Scum Raiders",
+    "ships": [
+      "firespray",
+      "z95headhunter",
+      "fangfighter"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Imperial Might",
+    "ships": [
+      "tieadvanced",
+      "tiefighter",
+      "tiefighter",
+      "tiefighter"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Clone Squadron Alpha",
+    "ships": [
+      "v19torrent",
+      "arc170",
+      "eta2actis"
+    ]
+  }
+]

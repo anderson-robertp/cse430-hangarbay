@@ -7,8 +7,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HeaderComponent } from './header/header.component';
-import { ShipListComponent } from './components/ship-list/ship-list.component';
-import { AddShipComponent } from './components/add-ship/add-ship.component';
+import { ShipListComponent } from './components/inventory/ship-list/ship-list.component';
+import { AddShipComponent } from './components/inventory/add-ship/add-ship.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 
 

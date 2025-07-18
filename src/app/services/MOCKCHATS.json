@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "sender": "skywalker42",
+    "timestamp": "2025-07-18T14:03:00Z",
+    "message": "Just picked up another T-65 X-wing for my squad. Can't wait to test it!"
+  },
+  {
+    "id": 2,
+    "sender": "sith_lord",
+    "timestamp": "2025-07-18T14:05:33Z",
+    "message": "Your rebellion will be crushed. Prepare for a swarm of TIE Interceptors."
+  },
+  {
+    "id": 3,
+    "sender": "pilotphoenix",
+    "timestamp": "2025-07-18T14:06:01Z",
+    "message": "Relax, Vader. Let’s see how that swarm does against a Ghost crew build 😏"
+  },
+  {
+    "id": 4,
+    "sender": "redfive",
+    "timestamp": "2025-07-18T14:07:45Z",
+    "message": "Don’t forget—local tournament this Friday. Bring your A-game!"
+  },
+  {
+    "id": 5,
+    "sender": "imperialace",
+    "timestamp": "2025-07-18T14:09:12Z",
+    "message": "Soontir Fel doesn’t need luck. Just flawless maneuvering. See you Friday."
+  }
+]

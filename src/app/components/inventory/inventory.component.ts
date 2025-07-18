@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AddShipComponent } from '../add-ship/add-ship.component';
-import { ShipListComponent } from '../ship-list/ship-list.component';
+import { AddShipComponent } from './add-ship/add-ship.component';
+import { ShipListComponent } from './ship-list/ship-list.component';
 
 
 @Component({

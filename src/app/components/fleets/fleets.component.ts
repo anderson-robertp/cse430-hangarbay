@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+import { Injectable } from '@angular/core';
+import { Fleet } from './fleet.model';
+
 @Component({
   selector: 'app-fleets',
   imports: [],

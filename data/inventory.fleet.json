@@ -1,0 +1,49 @@
+[{
+  "_id": {
+    "$oid": "687ad5c20145a75827edf6b4"
+  },
+  "id": 1,
+  "name": "Red Squadron",
+  "ships": [
+    "xwing",
+    "xwing",
+    "ywing"
+  ]
+},
+{
+  "_id": {
+    "$oid": "687ad5c20145a75827edf6b5"
+  },
+  "id": 2,
+  "name": "Scum Raiders",
+  "ships": [
+    "firespray",
+    "z95headhunter",
+    "fangfighter"
+  ]
+},
+{
+  "_id": {
+    "$oid": "687ad5c20145a75827edf6b6"
+  },
+  "id": 3,
+  "name": "Imperial Might",
+  "ships": [
+    "tieadvanced",
+    "tiefighter",
+    "tiefighter",
+    "tiefighter"
+  ]
+},
+{
+  "_id": {
+    "$oid": "687ad5c20145a75827edf6b7"
+  },
+  "id": 4,
+  "name": "Clone Squadron Alpha",
+  "ships": [
+    "v19torrent",
+    "arc170",
+    "eta2actis"
+  ]
+}]

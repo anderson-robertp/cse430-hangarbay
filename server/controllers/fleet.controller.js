@@ -3,12 +3,27 @@ const Fleet = require('../models/fleet.model');
 // GET all fleets
 exports.getAllFleets = async (req, res) => {
   try {
-    const fleets = await Fleet.find().populate('ships.shipId');
+    const fleets = await Fleet.find();
+    console.log(fleets);
     res.json(fleets);
   } catch (err) {
+    console.error('Error fetching fleets:', err);
     res.status(500).json({ message: err.message });
   }
 };
+
+// GET fleet by ID
+exports.getFleetById = async (req, res) => {
+    try {
+        const fleet = await Fleet.findById(req.params.id).populate('ships.shipId');
+        if (!fleet) {
+        return res.status(404).json({ message: 'Fleet not found' });
+        }
+        res.json(fleet);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
 
 // POST new fleet
 exports.createFleet = async (req, res) => {

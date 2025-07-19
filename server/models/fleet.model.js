@@ -5,7 +5,7 @@ const fleetSchema = new mongoose.Schema({
   name: { type: String, required: true },
   ships: [
     {
-      shipId: { type: mongoose.Schema.Types.ObjectId, ref: 'Ship' },
+      shipId: { type: String, ref: 'Ship' },
       quantity: { type: Number, default: 1 }
     }
   ],

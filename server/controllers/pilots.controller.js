@@ -13,7 +13,7 @@ exports.getAllPilots = async (req, res) => {
 // Get pilot by ID
 exports.getPilotById = async (req, res) => {
     try {
-    const pilot = await Pilot.findById(req.params.id);
+    const pilot = await Pilot.findOne({id: req.params.id});
     if (!pilot) {
         return res.status(404).json({ message: 'Pilot not found' });
         }

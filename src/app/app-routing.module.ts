@@ -5,14 +5,14 @@ import { ShipListComponent } from './components/inventory/ship-list/ship-list.co
 import { AddShipComponent } from './components/inventory/add-ship/add-ship.component';
 import { FleetsComponent } from './components/fleets/fleets.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
-import { ChatComponent } from './components/chat/chat.component';
+import { ChatListComponent } from './components/chat/chat-list/chat-list.component';
 
 const routes: Routes = [
   { path: '', component: InventoryComponent },
   { path: 'ships', component: ShipListComponent },
   { path: 'add', component: AddShipComponent },
   { path: 'fleets', component: FleetsComponent },
-  { path: 'chat', component: ChatComponent }
+  { path: 'chat', component: ChatListComponent }
 ];
 
 @NgModule({

@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   inventory: [{ type: Number }],  // Array of IDs referencing ships or items
-  fleets: [{ type: Number}],  // Array of fleet IDs
+  fleets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Fleet' }]
 });
 
 module.exports = mongoose.model('User', userSchema);

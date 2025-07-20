@@ -1,6 +1,6 @@
 export interface ChatMessage {
   id: number;
-  sender: string;
+  sender: number;
   timestamp: string;  // or use `Date` and convert when loading
   message: string;
 }

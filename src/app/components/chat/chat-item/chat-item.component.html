@@ -1,1 +1,6 @@
-<p>chat-item works!</p>
+<a class="list-group-item clearfix" *ngIf="chat">
+  <div>
+    <span class="messageHeader">{{ user?.username }}</span>
+    <div class="messageText">{{ chat.message }}</div>
+  </div>
+</a>

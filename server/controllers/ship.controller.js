@@ -13,7 +13,7 @@ exports.getAllShips = async (req, res) => {
 // GET ship by ID
 exports.getShipById = async (req, res) => {
     try {
-        const ship = await Ship.findById(req.params.id);
+        const ship = await Ship.findOne({id: req.params.id});
         if (!ship) {
         return res.status(404).json({ message: 'Ship not found' });
         }

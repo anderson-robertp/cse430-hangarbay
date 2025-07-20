@@ -13,7 +13,7 @@ exports.getAllUpgrades = async (req, res) => {
 // GET upgrade by ID
 exports.getUpgradeById = async (req, res) => {
     try {
-        const upgrade = await Upgrades.findById(req.params.id);
+        const upgrade = await Upgrades.findOne({id: req.params.id});
         if (!upgrade) {
         return res.status(404).json({ message: 'Upgrade not found' });
         }

@@ -4,7 +4,7 @@ const Fleet = require('../models/fleet.model');
 exports.getAllFleets = async (req, res) => {
   try {
     const fleets = await Fleet.find();
-    console.log(fleets);
+    //console.log(fleets);
     res.json(fleets);
   } catch (err) {
     console.error('Error fetching fleets:', err);
@@ -15,7 +15,7 @@ exports.getAllFleets = async (req, res) => {
 // GET fleet by ID
 exports.getFleetById = async (req, res) => {
     try {
-        const fleet = await Fleet.findById(req.params.id).populate('ships.shipId');
+        const fleet = await Fleet.findOne({id: req.params.id});
         if (!fleet) {
         return res.status(404).json({ message: 'Fleet not found' });
         }

@@ -23,6 +23,7 @@ const shipRoutes = require('./routes/ships.routes');
 const pilotRoutes = require('./routes/pilots.routes');
 const usersRoutes = require('./routes/users.routes');
 const upgradesRoutes = require('./routes/upgrades.routes');
+const chatRoutes = require('./routes/chat.routes');
 
 // MongoDB connection
 mongoose.connect('mongodb://localhost:27017/hangarbay', {
@@ -58,12 +59,13 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   res.send('X-Wing Inventory API Running');
 });
-app.use('/api/fleet', fleetRoutes);
+app.use('/api/fleets', fleetRoutes);
 app.use('/api/ships', shipRoutes);
 //app.use('/api', index);
 app.use('/api/pilots', pilotRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/upgrades', upgradesRoutes);
+app.use('/api/chats', chatRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

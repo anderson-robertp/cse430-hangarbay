@@ -1,0 +1,128 @@
+[{
+  "_id": {
+    "$oid": "687ad7f80145a75827edf6dd"
+  },
+  "id": 1,
+  "username": "skywalker42",
+  "email": "luke@rebellion.com",
+  "inventory": [
+    {
+      "$oid": "687ab1df0145a75827edf3d9"
+    },
+    {
+      "$oid": "687ab1df0145a75827edf3db"
+    },
+    {
+      "$oid": "687ab1df0145a75827edf3e3"
+    }
+  ],
+  "fleets": [
+    {
+      "$oid": "687ad5c20145a75827edf6b4"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "687ad7f80145a75827edf6de"
+  },
+  "id": 2,
+  "username": "sith_lord",
+  "email": "vader@empire.gov",
+  "inventory": [
+    {
+      "$oid": "687ab1df0145a75827edf3dd"
+    },
+    {
+      "$oid": "687ab1df0145a75827edf3de"
+    },
+    {
+      "$oid": "687ab1df0145a75827edf3df"
+    },
+    {
+      "$oid": "687ab1df0145a75827edf3e7"
+    }
+  ],
+  "fleets": [
+    {
+      "$oid": "687b104a0145a75827edf6fb"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "687ad7f80145a75827edf6df"
+  },
+  "id": 3,
+  "username": "pilotphoenix",
+  "email": "hera@ghostcrew.net",
+  "inventory": [
+    2,
+    7
+  ],
+  "fleets": [
+    {
+      "$oid": "687b102a0145a75827edf6fa"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "687ad7f80145a75827edf6e0"
+  },
+  "id": 4,
+  "username": "redfive",
+  "email": "biggs@roguesquadron.org",
+  "inventory": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "fleets": [
+    {
+      "$oid": "687b101b0145a75827edf6f9"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "687ad7f80145a75827edf6e1"
+  },
+  "id": 5,
+  "username": "imperialace",
+  "email": "soontir@coruscant.com",
+  "inventory": [
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "fleets": [
+    {
+      "$oid": "687ad5c20145a75827edf6b6"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "687b60dc0145a75827edf717"
+  },
+  "id": 6,
+  "username": "gambitXero",
+  "email": "gambit@roguesquad.org",
+  "inventory": [
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "fleets": [
+    {
+      "$oid": "687ad5c20145a75827edf6b6"
+    }
+  ]
+}]

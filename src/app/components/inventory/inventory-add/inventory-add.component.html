@@ -1,4 +1,15 @@
-<select class="form-select mb-3" [(ngModel)]="selectedShipId">
-  <option *ngFor="let ship of catalog" [value]="ship.id">{{ ship.name }}</option>
-</select>
-<button class="btn btn-success" (click)="addShipFromCatalog()">Add to Inventory</button>
+<div class="row">
+  <div class="col-md-12">
+    <h3>Add Ship to Inventory</h3>
+  </div>
+  <div class="col-md-12">
+    <label for="shipSelect">Select Ship:</label>
+    <select class="form-select mb-3" [(ngModel)]="selectedShipId">
+      <option *ngFor="let ship of catalog" [value]="ship.id">{{ ship.name }}</option>
+    </select> <hr>
+    <label for="quantity">Quantity:</label>
+    <input type="number" class="form-control mb-3" *ngIf="selectedShipId" [(ngModel)]="quantity" id="quantity" min="1" max="10" placeholder="Enter quantity" />
+    <button class="btn btn-success" (click)="addShipFromCatalog()">Add to Inventory</button>
+  </div>
+</div>
+

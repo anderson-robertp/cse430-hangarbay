@@ -23,6 +23,8 @@ export class InventoryListComponent implements OnInit{
 
   @Input() ships: Ship[] = [];
 
+  @Input() selectedPilotId: number | undefined;
+
   constructor(
     private inventoryService: InventoryService,
     private pilotService: PilotService,
@@ -34,6 +36,16 @@ export class InventoryListComponent implements OnInit{
       this.inventory = items;
       console.log('Inventory loaded:', this.inventory);
     });*/
+    this.inventory.forEach(item => {
+      if (!item.selectedPilotId) {
+        const pilots = this.getPilotsForShip(this.getShip(item.shipId)?.name || '');
+        console.log('Available pilots for ship:', pilots);
+        item.selectedPilotId = pilots.length > 0 ? pilots[0].id : undefined;
+        console.log('Selected pilot ID:', item.selectedPilotId);
+      }
+    });
+    
+
     console.log('Inventory loaded:', this.inventory);
     this.inventoryService.getShips().subscribe(ships => this.ships = ships);
     console.log('Ships loaded:', this.ships);
@@ -62,6 +74,7 @@ export class InventoryListComponent implements OnInit{
   onPilotChange(item: InventoryItem, event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     item.selectedPilotId = parseInt(selectElement.value, 10);
+    console.log('Pilot changed:', item.selectedPilotId, this.getPilotById(item.selectedPilotId));
   }
 
   onUpgradeChange(item: InventoryItem, index: number, event: Event): void {
@@ -82,6 +95,11 @@ export class InventoryListComponent implements OnInit{
   filterUpgradesBySlot(slot: string): Upgrade[] {
     return this.upgrades.filter(upg => upg.slot === slot);
   }
+
+  getPilotById(id?: number): Pilot | undefined {
+    if (!id) return undefined;
+    return this.pilots.find(p => p.id === id);
+  } 
 
   deleteShip(id: number): void {
     this.inventoryService.deleteShip(id).subscribe(() => {

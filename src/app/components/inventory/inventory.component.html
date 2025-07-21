@@ -14,7 +14,7 @@
           <h5 class="mb-0">Add Ship to Inventory</h5>
         </div>
         <div class="card-body">
-          <app-inventory-add></app-inventory-add>
+          <app-inventory-add (inventoryUpdated)="reloadInventory()"></app-inventory-add>
         </div>
       </div>
     </div>

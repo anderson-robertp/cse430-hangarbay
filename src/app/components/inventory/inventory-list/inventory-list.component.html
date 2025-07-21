@@ -1,25 +1,51 @@
-<div *ngFor="let item of inventory">
-  <div class="inventory-card">
-    <h3>{{ getShip(item.shipId)?.name }}</h3>
-    <p>Quantity: {{ item.quantity }}</p>
+<div *ngFor="let item of inventory" class="card mb-3">
+  <div class="row g-0 align-items-center">
+    <!-- Left: Card Body -->
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ getShip(item.shipId)?.name }}</h5>
+        <p class="card-text">Quantity: {{ item.quantity }}</p>
 
-    <label>Pilot:</label>
-    <select [value]="item.selectedPilotId" (change)="onPilotChange(item, $event)">
-      <option *ngFor="let pilot of getPilotsForShip(getShip(item.shipId)?.name!)" [value]="pilot.id">
-        {{ pilot.name }}
-      </option>
-    </select>
-
-    <div *ngIf="item.selectedPilotId">
-      <h4>Upgrades:</h4>
-      <ng-container *ngFor="let slot of getSlotsForItem(item); let i = index">
-        <label>{{ slot }}:</label>
-        <select [value]="item.selectedUpgradeIds?.[i]" (change)="onUpgradeChange(item, i, $event)">
-          <option *ngFor="let upg of filterUpgradesBySlot(slot)" [value]="upg.id">
-            {{ upg.name }}
+        <label for="pilotSelect-{{ item.shipId }}">Pilot:</label>
+        <select
+          id="pilotSelect-{{ item.shipId }}"
+          class="form-select mb-2"
+          [value]="item.selectedPilotId"
+          (change)="onPilotChange(item, $event)"
+        >
+          <option *ngFor="let pilot of getPilotsForShip(getShip(item.shipId)?.name!)" [value]="pilot.id">
+            {{ pilot.name }}
           </option>
         </select>
-      </ng-container>
+
+        <div *ngIf="item.selectedPilotId">
+          <h6>Upgrades:</h6>
+          <ng-container *ngFor="let slot of getSlotsForItem(item); let i = index">
+            <label>{{ slot }}:</label>
+            <select
+              class="form-select mb-2"
+              [value]="item.selectedUpgradeIds?.[i]"
+              (change)="onUpgradeChange(item, i, $event)"
+            >
+              <option *ngFor="let upg of filterUpgradesBySlot(slot)" [value]="upg.id">
+                {{ upg.name }}
+              </option>
+            </select>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Pilot Image -->
+    <div class="col-md-4 text-end pe-3">
+      <div *ngIf="getPilotById(item.selectedPilotId) as pilot">
+      <img
+        [src]="'assets/images/' + pilot.image"
+        alt="{{ pilot.name }}"
+        class="img-fluid"
+     />
+    </div>
+
     </div>
   </div>
 </div>

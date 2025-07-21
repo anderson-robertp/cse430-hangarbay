@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Ship } from './ship.model';
-import { Observable, of } from 'rxjs';
-import { map, catchError, switchMap } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
+import { map, catchError, switchMap, tap } from 'rxjs/operators';
 import  MOCKSHIPLIST  from './MOCKSHIPLIST.json';
 
 import { UserService } from '../users/user.service';
@@ -15,6 +15,8 @@ export class InventoryService {
   private apiUrl = 'http://localhost:3000/api/ships';
   private userId: number = 6;
   private ships: Ship[] = [];
+
+  inventoryChangedEvent = new Subject<InventoryItem[]>();
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
@@ -43,7 +45,27 @@ export class InventoryService {
     );
   }
 
-  
+  addToInventory(userId: number, item: InventoryItem): Observable<any> {
+    return this.http.post(`http://localhost:3000/api/users/${userId}/inventory`, item)
+    .subscribe({
+      next: (response) => {
+        console.log('Item added to inventory:', response);
+        this.inventoryChangedEvent.next([item]); // Emit the new item
+      },
+      error: (error) => {
+        console.error('Error adding item to inventory:', error);
+      }
+    })
+    .pipe(
+      tap(() => {
+        this.inventoryChangedEvent.next([item]); // Emit the new item
+      }),
+      catchError(error => {
+        console.error('Error adding to inventory:', error);
+        return of(null); // Return an empty observable on error
+      })
+    );
+  }
 
 
   getShips(): Observable<Ship[]> {

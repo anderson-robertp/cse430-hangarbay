@@ -59,3 +59,35 @@ exports.deleteUser = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 }
+
+  // get user inventory
+exports.getUserInventory = async (req, res) => {
+  try {
+    const user = await User.findOne({ id: req.params.id });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json(user.inventory);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+  // add ship to user inventory
+exports.addShipToInventory = async (req, res) => {
+  try {
+    const user = await User.findOne({ id: req.params.id });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+      
+    const inventoryEntry = req.body;
+    user.inventory.push(inventoryEntry);
+    await user.save();
+      
+    res.status(201).json(inventoryEntry);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+}
+

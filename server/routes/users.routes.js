@@ -12,5 +12,9 @@ router.post('/', usersController.createUser);
 router.put('/:id', usersController.updateUser);
 // Delete a user
 router.delete('/:id', usersController.deleteUser);
+// Get user inventory
+router.get('/:id/inventory', usersController.getUserInventory);
+// Add ship to user inventory
+router.post('/:id/inventory', usersController.addShipToInventory);
 
 module.exports = router;

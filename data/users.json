@@ -1,0 +1,28 @@
+[
+  {
+    "id": 6,
+    "username": "gambitXero",
+    "email": "gambit@roguesquad.org",
+    "inventory": [
+      {
+        "shipId": 12,
+        "selectedPilotId": 0,
+        "selectedUpgradeIds": [103, 207, 301],
+        "quantity": 2,
+        "totalPoints": 68
+      },
+      {
+        "shipId": 8,
+        "selectedPilotId": 4,
+        "selectedUpgradeIds": [110, 210],
+        "quantity": 1,
+        "totalPoints": 44
+      }
+    ],
+    "fleets": [
+        {
+        "$oid": "687ad5c20145a75827edf6b6"
+        }
+    ]
+  }
+]

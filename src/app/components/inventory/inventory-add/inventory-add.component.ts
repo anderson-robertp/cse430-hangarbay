@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, Input } from '@angular/core';
 import { InventoryService } from '../inventory.service';
 import { Ship } from '../ship.model';
+import { InventoryItem } from '../inventory.model';
 
 @Component({
   selector: 'app-inventory-add',
@@ -9,7 +10,22 @@ import { Ship } from '../ship.model';
   styleUrl: './inventory-add.component.scss'
 })
 export class InventoryAddComponent {
-  newShip: Ship = {
+  inventory: InventoryItem[] = [];
+  //quantity: number = 1;
+
+  private _selectedShipId: number | undefined;
+
+  @ViewChild('shipSelect') shipSelect: any;
+  @ViewChild('quantity') quantity: number = 1;
+
+  @Input() userId!: number; // Default user ID, can be set from parent component
+
+  
+
+  @Output() inventoryUpdated = new EventEmitter<void>();
+    
+
+  /*newShip: Ship = {
     id: 0,
     name: '',
     faction: [],
@@ -29,11 +45,11 @@ export class InventoryAddComponent {
   actionInput = '';
   arcInput = '';
   dialInput = '';
-  maneuverInput: number[] = [];
+  maneuverInput: number[] = [];*/
 
   catalog: Ship[] = [];
 
-  selectedShipId: number = -1;
+  //selectedShipId: number = -1;
 
   constructor(private inventoryService: InventoryService) {}
 
@@ -44,15 +60,34 @@ export class InventoryAddComponent {
   }
 
   addShipFromCatalog() {
-  const shipToAdd = this.catalog.find(s => s.id === this.selectedShipId);
-  if (shipToAdd) {
-    this.inventoryService.addShip(shipToAdd).subscribe(() => {
-      // Refresh list or show confirmation
-    });
-  }
-}
 
-  addFaction(): void {
+    if (!this.selectedShipId) {
+      console.error('No ship selected');
+      return;
+    }
+
+    // Find the ship in the catalog
+    const shipToAdd = this.catalog.find(s => s.id === this.selectedShipId);
+    if (!shipToAdd) return;
+
+    const quantityToAdd = this.quantity > 0 ? this.quantity : 1;
+    
+    if (shipToAdd) {
+      const inventoryItem: InventoryItem = {
+        shipId: shipToAdd.id,
+        quantity: quantityToAdd,
+        selectedPilotId: undefined, // or set a default pilot ID if needed
+        selectedUpgradeIds: [],
+        points: 0
+      };
+
+      this.inventoryService.addToInventory(6, inventoryItem).subscribe(() => {
+        this.inventoryUpdated.emit()
+      });
+    }
+  }
+
+  /*addFaction(): void {
     if (this.factionInput.trim()) {
       this.newShip.faction.push(this.factionInput.trim());
       this.factionInput = '';
@@ -106,4 +141,41 @@ export class InventoryAddComponent {
       };
     });
   }
+
+  sortAndSend(): void {
+    this.newShip.faction.sort();
+    this.newShip.actions.sort();
+    this.newShip.firing_arcs.sort();
+    this.newShip.dial.sort();
+    this.inventoryService.addShip(this.newShip).subscribe(() => {
+      // Optionally reset the form or show a success message
+      this.newShip = {
+        id: 0,
+        name: '',
+        faction: [],
+        attack: 0,
+        agility: 0,
+        hull: 0,
+        shields: 0,
+        actions: [],
+        maneuvers: [[], [], [], [], []],
+        size: 'small',
+        xws: '',
+        firing_arcs: [],
+        dial: []
+      };
+    });
+  }*/
+  set selectedShipId(value: number) {
+    this._selectedShipId = value;
+    console.log('Selected ship ID:', this._selectedShipId);
+    if (value) {
+      this.quantity = 1; // Reset quantity when a ship is selected
+    }
+  }
+
+  get selectedShipId(): number | undefined {
+    return this._selectedShipId;
+  }
+
 }

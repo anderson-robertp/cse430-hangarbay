@@ -30,8 +30,8 @@ export class InventoryService {
         map(ships => {
           return user.inventory.map(inv => {
             const ship = ships.find(s => s.id === inv.shipId);
-            console.log('Inventory item:', inv);
-            console.log('Found ship:', ship);
+            //console.log('Inventory item:', inv);
+            //console.log('Found ship:', ship);
             return {
               ship,
               shipId: inv.shipId,
@@ -51,7 +51,7 @@ export class InventoryService {
     .pipe(
       tap(() => {
         this.inventoryChangedEvent.next([item]); // Emit the new item
-        console.log('Inventory item added.' + item.shipId);
+        //console.log('Inventory item added.' + item.shipId);
       }),
       catchError(error => {
         console.error('Error adding to inventory:', error);
@@ -61,7 +61,7 @@ export class InventoryService {
   }
 
   updateInventoryItem(userId: number, shipId: string, item: InventoryItem): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${userId}/inventory/${shipId}`, item)
+    return this.http.put(`http://localhost:3000/api/users/${userId}/inventory/${shipId}`, item)
     .pipe(
       tap(() => {
         this.inventoryChangedEvent.next([item]); // Emit the updated item

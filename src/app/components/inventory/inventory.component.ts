@@ -27,14 +27,14 @@ export class InventoryComponent implements OnInit {
   ngOnInit(): void {
     this.inventoryService.getInventory(this.someUserId).subscribe((items: InventoryItem[]) => {
       this.userShips = items;
-      console.log('Inventory loaded:', this.userShips);
+      //console.log('Inventory loaded:', this.userShips);
     });
     this.userShips.forEach(item => {
       if (!item.selectedPilotId) {
         const pilots = this.getPilotsForShip(this.getShip(item.shipId)?.name || '');
-        console.log('Available pilots for ship:', pilots);
+        //console.log('Available pilots for ship:', pilots);
         item.selectedPilotId = pilots.length > 0 ? pilots[0].id : undefined;
-        console.log('Selected pilot ID:', item.selectedPilotId);
+        //console.log('Selected pilot ID:', item.selectedPilotId);
       }
     });
     this.reloadInventory();
@@ -59,7 +59,7 @@ export class InventoryComponent implements OnInit {
   reloadInventory(): void {
     this.inventoryService.getInventory(6).subscribe((items: InventoryItem[]) => {
       this.userShips = items;
-      console.log('Inventory reloaded:', this.userShips);
+      //console.log('Inventory reloaded:', this.userShips);
     });
   }
 

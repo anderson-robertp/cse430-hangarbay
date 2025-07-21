@@ -39,14 +39,14 @@ export class InventoryListComponent implements OnInit{
     
     
 
-    console.log('Inventory loaded:', this.inventory);
+    //console.log('Inventory loaded:', this.inventory);
     this.inventoryService.getShips().subscribe(ships => this.ships = ships);
-    console.log('Ships loaded:', this.ships);
+    //console.log('Ships loaded:', this.ships);
     
     this.pilotService.getPilots().subscribe(pilots => this.pilots = pilots);
-    console.log('Pilots loaded:', this.pilots);
+    //console.log('Pilots loaded:', this.pilots);
     this.upgradeService.getUpgrades().subscribe(upgrades => this.upgrades = upgrades);
-    console.log('Upgrades loaded:', this.upgrades);
+    //console.log('Upgrades loaded:', this.upgrades);
 
     
   }
@@ -69,7 +69,8 @@ export class InventoryListComponent implements OnInit{
   onPilotChange(item: InventoryItem, event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     item.selectedPilotId = parseInt(selectElement.value, 10);
-    console.log('Pilot changed:', item.selectedPilotId, this.getPilotById(item.selectedPilotId));
+    this.recalculateItemPoints(item);
+    //console.log('Pilot changed:', item.selectedPilotId, this.getPilotById(item.selectedPilotId));
   }
 
   onUpgradeChange(item: InventoryItem, index: number, event: Event): void {
@@ -80,6 +81,8 @@ export class InventoryListComponent implements OnInit{
       item.selectedUpgradeIds = [];
     }
     item.selectedUpgradeIds[index] = selectedValue;
+    this.recalculateItemPoints(item);
+    //console.log('Upgrade changed:', item.selectedUpgradeIds, this.getUpgradeById(selectedValue));
   }
 
   getSlotsForItem(item: InventoryItem): string[] {
@@ -100,5 +103,62 @@ export class InventoryListComponent implements OnInit{
     this.inventoryService.deleteShip(id).subscribe(() => {
       this.ships = this.ships.filter(ship => ship.id !== id);
     });
+  }
+
+  removeFromInventory(item: InventoryItem): void {
+    this.inventory = this.inventory.filter(inv => inv.shipId !== item.shipId || inv.selectedPilotId !== item.selectedPilotId);
+    this.inventoryService.deleteShip(item.shipId).subscribe(() => {
+      //console.log('Ship removed from inventory:', item.shipId);
+    });
+  }
+
+  getUpgradeById(id: number): Upgrade | undefined {
+    return this.upgrades.find(upg => upg.id === id);
+  }
+
+  getTotalInventoryPoints(): number {
+    return this.inventory.reduce((sum, item) => sum + (item.points || 0), 0);
+  }
+
+  updateItem(item: InventoryItem): void {
+    // Recalculate points based on selected pilot and upgrades
+    const pilot = this.getPilotById(item.selectedPilotId || 0);
+    const pilotPoints = pilot ? pilot.points : 0;
+    const upgradePoints = (item.selectedUpgradeIds || []).reduce((sum, upgId) => {
+      const upg = this.getUpgradeById(upgId);
+      return sum + (upg ? upg.points : 0);
+    }, 0);
+    item.points = pilotPoints + upgradePoints;
+
+    this.inventoryService.updateInventoryItem(6, item.shipId.toString(), item).subscribe(() => {
+      //console.log('Inventory item updated:', item);
+    });
+  }
+
+  addToFleet(item: InventoryItem): void {
+    console.log('Adding to fleet:', item);
+    // Implement fleet addition logic here
+  }
+
+  recalculateItemPoints(item: InventoryItem): number {
+    //console.log('Recalculating points for item:', item);
+    const pilot = this.getPilotById(item.selectedPilotId || 0);
+    const pilotPoints = pilot ? pilot.points : 0;
+    const upgradePoints = (item.selectedUpgradeIds || []).reduce((sum, upgId) => {
+      const upg = this.getUpgradeById(upgId);
+      return sum + (upg ? upg.points : 0);
+    }, 0);
+    return item.points = pilotPoints + upgradePoints;
+  }
+
+  getTotalPointsForItem(item: InventoryItem): number {
+    const pilot = this.getPilotById(item.selectedPilotId);
+    const pilotPoints = pilot?.points || 0;
+
+    const upgradePoints = (item.selectedUpgradeIds || [])
+      .map(id => this.getUpgradeById(id)?.points || 0)
+      .reduce((sum, val) => sum + val, 0);
+
+    return pilotPoints + upgradePoints;
   }
 }

@@ -16,16 +16,16 @@ export class FleetEditComponent {
   inventory: Ship[] = [];
 
   toggleShip(ship: Ship) {
-    const index = this.fleet.ships.findIndex(s => s === ship.xws);
+    const index = this.fleet.ships.findIndex(s => s.shipId === ship.id);
     if (index === -1) {
-      this.fleet.ships.push(ship.xws);
+      //this.fleet.ships.push(ship);
     } else {
       this.fleet.ships.splice(index, 1);
     }
   }
 
   isShipInFleet(ship: Ship): boolean {
-    return this.fleet.ships.some(s => s === ship.xws);
+    return this.fleet.ships.some(s => s.shipId === ship.id);
   }
 
   save() {

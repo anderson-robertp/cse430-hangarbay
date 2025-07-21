@@ -1,0 +1,25 @@
+<div *ngFor="let item of inventory">
+  <div class="inventory-card">
+    <h3>{{ getShip(item.shipId)?.name }}</h3>
+    <p>Quantity: {{ item.quantity }}</p>
+
+    <label>Pilot:</label>
+    <select [value]="item.selectedPilotId" (change)="onPilotChange(item, $event)">
+      <option *ngFor="let pilot of getPilotsForShip(getShip(item.shipId)?.name!)" [value]="pilot.id">
+        {{ pilot.name }}
+      </option>
+    </select>
+
+    <div *ngIf="item.selectedPilotId">
+      <h4>Upgrades:</h4>
+      <ng-container *ngFor="let slot of getSlotsForItem(item); let i = index">
+        <label>{{ slot }}:</label>
+        <select [value]="item.selectedUpgradeIds?.[i]" (change)="onUpgradeChange(item, i, $event)">
+          <option *ngFor="let upg of filterUpgradesBySlot(slot)" [value]="upg.id">
+            {{ upg.name }}
+          </option>
+        </select>
+      </ng-container>
+    </div>
+  </div>
+</div>

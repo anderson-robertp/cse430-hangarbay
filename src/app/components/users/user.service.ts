@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject, of, tap } from 'rxjs';
 
 
 import { User } from './user.model';
@@ -30,7 +30,9 @@ export class UserService {
       
 
   getUserById(id: Number): Observable<User> {
-    return this.http.get<User>(`http://localhost:3000/api/users/${id}`);
+    return this.http.get<User>(`http://localhost:3000/api/users/${id}`).pipe(
+      tap(user => console.log('Fetched user:', user))
+    );
   }
 
   sortAndSend() {

@@ -15,12 +15,12 @@ export class FleetService {
   private apiUrl = 'http://localhost:3000/api/fleets';
   private mockFleetUrl = 'src/app/components/fleets/MOCKFLEETS.json';
 
-  getMockFleets(): Fleet[] {
+  /*getMockFleets(): Fleet[] {
     return MOCKFLEETS;
-  }
+  }*/
 
   getFleets(): Observable<Fleet[]> {
-    return this.http.get<Fleet[]>(this.mockFleetUrl);
+    return this.http.get<Fleet[]>(this.apiUrl);
   }
 
   addFleet(fleet: Fleet): void {

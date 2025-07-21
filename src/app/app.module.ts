@@ -7,8 +7,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HeaderComponent } from './header/header.component';
-import { ShipListComponent } from './components/inventory/ship-list/ship-list.component';
-import { AddShipComponent } from './components/inventory/add-ship/add-ship.component';
+import { InventoryListComponent } from './components/inventory/inventory-list/inventory-list.component';
+import { InventoryAddComponent } from './components/inventory/inventory-add/inventory-add.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { FleetsComponent } from './components/fleets/fleets.component';
 import { FleetListComponent } from './components/fleets/fleet-list/fleet-list.component';
@@ -25,8 +25,8 @@ import { ChatItemComponent } from './components/chat/chat-item/chat-item.compone
     AppComponent,
     InventoryComponent,
     HeaderComponent,
-    ShipListComponent,
-    AddShipComponent,
+    InventoryListComponent,
+    InventoryAddComponent,
     FleetsComponent,
     FleetListComponent,
     FleetEditComponent,

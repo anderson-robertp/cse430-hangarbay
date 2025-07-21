@@ -4,7 +4,7 @@
   <div class="row">
     <!-- Left: Inventory list -->
     <div class="col-md-7">
-      <app-ship-list></app-ship-list>
+      <app-inventory-list [inventory]="userShips"></app-inventory-list>
     </div>
 
     <!-- Right: Add ship from catalog -->
@@ -14,7 +14,7 @@
           <h5 class="mb-0">Add Ship to Inventory</h5>
         </div>
         <div class="card-body">
-          <app-add-ship></app-add-ship>
+          <app-inventory-add></app-inventory-add>
         </div>
       </div>
     </div>

@@ -1,8 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
 import { Ship } from '../inventory/ship.model';
+import { Fleet, FleetShip } from './fleet.model';
+import { Pilot } from '../pilots/pilot.model';
+import { Upgrade } from '../upgrades/upgrade.model';
+
+import { InventoryService } from '../inventory/inventory.service';
 import { FleetService } from './fleet.service';
-import { Fleet } from './fleet.model';
-import { ShipService } from '../inventory/ship.service';
+import { PilotService } from '../pilots/pilot.service';
+import { UpgradeService } from '../upgrades/upgrade.service';
 
 
 

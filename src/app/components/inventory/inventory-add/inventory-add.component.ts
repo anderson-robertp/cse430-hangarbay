@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { ShipService } from '../ship.service';
+import { InventoryService } from '../inventory.service';
 import { Ship } from '../ship.model';
 
 @Component({
-  selector: 'app-add-ship',
+  selector: 'app-inventory-add',
   standalone: false,
-  templateUrl: './add-ship.component.html',
-  styleUrl: './add-ship.component.scss'
+  templateUrl: './inventory-add.component.html',
+  styleUrl: './inventory-add.component.scss'
 })
-export class AddShipComponent {
+export class InventoryAddComponent {
   newShip: Ship = {
     id: 0,
     name: '',
@@ -35,16 +35,18 @@ export class AddShipComponent {
 
   selectedShipId: number = -1;
 
-  constructor(private shipService: ShipService) {}
+  constructor(private inventoryService: InventoryService) {}
 
   ngOnInit(): void {
-    this. catalog = this.shipService.getCatalog();
+    this.inventoryService.getCatalog().subscribe((ships: Ship[]) => {
+      this.catalog = ships;
+    });
   }
 
   addShipFromCatalog() {
   const shipToAdd = this.catalog.find(s => s.id === this.selectedShipId);
   if (shipToAdd) {
-    this.shipService.addShip(shipToAdd).subscribe(() => {
+    this.inventoryService.addShip(shipToAdd).subscribe(() => {
       // Refresh list or show confirmation
     });
   }
@@ -86,7 +88,7 @@ export class AddShipComponent {
   }
 
   onSubmit(): void {
-    this.shipService.addShip(this.newShip).subscribe(() => {
+    this.inventoryService.addShip(this.newShip).subscribe(() => {
       this.newShip = {
         id: 0,
         name: '',

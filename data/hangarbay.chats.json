@@ -1,0 +1,57 @@
+[{
+  "_id": {
+    "$oid": "687b10ec0145a75827edf6fe"
+  },
+  "id": 1,
+  "sender": 1,
+  "timestamp": "2025-07-18T14:03:00Z",
+  "message": "Just picked up another T-65 X-wing for my squad. Can't wait to test it!"
+},
+{
+  "_id": {
+    "$oid": "687b10ec0145a75827edf6ff"
+  },
+  "id": 2,
+  "sender": 2,
+  "timestamp": "2025-07-18T14:05:33Z",
+  "message": "Your rebellion will be crushed. Prepare for a swarm of TIE Interceptors."
+},
+{
+  "_id": {
+    "$oid": "687b10ec0145a75827edf700"
+  },
+  "id": 3,
+  "sender": 3,
+  "timestamp": "2025-07-18T14:06:01Z",
+  "message": "Relax, Vader. Let’s see how that swarm does against a Ghost crew build 😏"
+},
+{
+  "_id": {
+    "$oid": "687b10ec0145a75827edf701"
+  },
+  "id": 4,
+  "sender": 4,
+  "timestamp": "2025-07-18T14:07:45Z",
+  "message": "Don’t forget—local tournament this Friday. Bring your A-game!"
+},
+{
+  "_id": {
+    "$oid": "687b10ec0145a75827edf702"
+  },
+  "id": 5,
+  "sender": 5,
+  "timestamp": "2025-07-18T14:09:12Z",
+  "message": "Soontir Fel doesn’t need luck. Just flawless maneuvering. See you Friday."
+},
+{
+  "_id": {
+    "$oid": "687b5f0eb612b7f0d01ed496"
+  },
+  "id": 1,
+  "sender": "6",
+  "timestamp": {
+    "$date": "2025-07-19T09:02:05.950Z"
+  },
+  "message": "New Test Message",
+  "__v": 0
+}]

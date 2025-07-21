@@ -1,0 +1,88 @@
+[{
+  "_id": {
+    "$oid": "687ad5c20145a75827edf6b4"
+  },
+  "id": 1,
+  "name": "Red Squadron",
+  "ships": [
+    {
+      "shipId": "xwing",
+      "quantity": 1
+    },
+    {
+      "shipId": "xwing",
+      "quantity": 1
+    },
+    {
+      "shipId": "ywing",
+      "quantity": 1
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "687ad5c20145a75827edf6b5"
+  },
+  "id": 2,
+  "name": "Scum Raiders",
+  "ships": [
+    {
+      "shipId": "firespray",
+      "quantity": 1
+    },
+    {
+      "shipId": "z95headhunter",
+      "quantity": 1
+    },
+    {
+      "shipId": "fangfighter",
+      "quantity": 1
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "687ad5c20145a75827edf6b6"
+  },
+  "id": 3,
+  "name": "Imperial Might",
+  "ships": [
+    {
+      "shipId": "tieadvanced",
+      "quantity": 1
+    },
+    {
+      "shipId": "tiefighter",
+      "quantity": 1
+    },
+    {
+      "shipId": "tiefighter",
+      "quantity": 1
+    },
+    {
+      "shipId": "tiefighter",
+      "quantity": 1
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "687ad5c20145a75827edf6b7"
+  },
+  "id": 4,
+  "name": "Clone Squadron Alpha",
+  "ships": [
+    {
+      "shipId": "v19torrent",
+      "quantity": 1
+    },
+    {
+      "shipId": "arc170",
+      "quantity": 1
+    },
+    {
+      "shipId": "eta2actis",
+      "quantity": 1
+    }
+  ]
+}]

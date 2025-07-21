@@ -108,17 +108,33 @@
 },
 {
   "_id": {
-    "$oid": "687b60dc0145a75827edf717"
+    "$oid": "687d87c803f1c9a5f98d0e6a"
   },
   "id": 6,
   "username": "gambitXero",
   "email": "gambit@roguesquad.org",
   "inventory": [
-    5,
-    6,
-    7,
-    8,
-    9
+    {
+      "shipId": 12,
+      "selectedPilotId": 0,
+      "selectedUpgradeIds": [
+        103,
+        207,
+        301
+      ],
+      "quantity": 2,
+      "totalPoints": 68
+    },
+    {
+      "shipId": 8,
+      "selectedPilotId": 4,
+      "selectedUpgradeIds": [
+        110,
+        210
+      ],
+      "quantity": 1,
+      "totalPoints": 44
+    }
   ],
   "fleets": [
     {

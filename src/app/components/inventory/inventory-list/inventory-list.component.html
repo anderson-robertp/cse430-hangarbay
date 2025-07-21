@@ -3,7 +3,7 @@
     <!-- Left: Card Body -->
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title">{{ getShip(item.shipId)?.name }}</h5>
+        <h4 class="card-title">{{ getShip(item.shipId)?.name }}</h4>
         <p class="card-text">Quantity: {{ item.quantity }}</p>
 
         <label for="pilotSelect-{{ item.shipId }}">Pilot:</label>
@@ -13,6 +13,7 @@
           [value]="item.selectedPilotId"
           (change)="onPilotChange(item, $event)"
         >
+          <option value="">-- Select Pilot --</option>
           <option *ngFor="let pilot of getPilotsForShip(getShip(item.shipId)?.name!)" [value]="pilot.id">
             {{ pilot.name }}
           </option>
@@ -27,6 +28,7 @@
               [value]="item.selectedUpgradeIds?.[i]"
               (change)="onUpgradeChange(item, i, $event)"
             >
+              <option value="">-- None --</option>
               <option *ngFor="let upg of filterUpgradesBySlot(slot)" [value]="upg.id">
                 {{ upg.name }}
               </option>

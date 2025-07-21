@@ -20,11 +20,12 @@ export class InventoryComponent implements OnInit {
   selectedShip: Ship | null = null;
   ships: Ship[] = [];
   pilots: Pilot[] = [];
+  someUserId: number = 6; // Example user ID, replace with actual user ID as needed
 
   constructor(private inventoryService: InventoryService) {}
 
   ngOnInit(): void {
-    this.inventoryService.getInventory(6).subscribe((items: InventoryItem[]) => {
+    this.inventoryService.getInventory(this.someUserId).subscribe((items: InventoryItem[]) => {
       this.userShips = items;
       console.log('Inventory loaded:', this.userShips);
     });
@@ -36,6 +37,7 @@ export class InventoryComponent implements OnInit {
         console.log('Selected pilot ID:', item.selectedPilotId);
       }
     });
+    this.reloadInventory();
   }
 
   /*onShipSelected(ship: Ship): void {

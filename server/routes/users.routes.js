@@ -16,5 +16,7 @@ router.delete('/:id', usersController.deleteUser);
 router.get('/:id/inventory', usersController.getUserInventory);
 // Add ship to user inventory
 router.post('/:id/inventory', usersController.addShipToInventory);
+// Update ship in user inventory
+router.put('/:id/inventory/:shipId', usersController.updateShipInInventory);
 
 module.exports = router;

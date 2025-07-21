@@ -14,6 +14,7 @@ export class InventoryAddComponent {
   //quantity: number = 1;
 
   private _selectedShipId: number | undefined;
+  selectedPilotId: number | undefined;
 
   @ViewChild('shipSelect') shipSelect: any;
   @ViewChild('quantity') quantity: number = 1;
@@ -23,6 +24,8 @@ export class InventoryAddComponent {
   
 
   @Output() inventoryUpdated = new EventEmitter<void>();
+
+  @Output() shipAdded = new EventEmitter<void>();
     
 
   /*newShip: Ship = {
@@ -60,31 +63,64 @@ export class InventoryAddComponent {
   }
 
   addShipFromCatalog() {
-
-    if (!this.selectedShipId) {
-      console.error('No ship selected');
+    console.log('Adding ship to inventory:', this.selectedShipId, 'Quantity:', this.quantity);
+    if (!this.selectedShipId || !this.quantity) {
+      console.error('No ship selected or quantity is zero.');
       return;
     }
+    //console.log('Catalog:', this.catalog);
+    const shipToAdd = this.catalog.find(ship => ship.id === Number(this.selectedShipId));
+    console.log('Ship to add:', shipToAdd);
+    if (!shipToAdd) {
+      console.error('Selected ship not found in catalog.');
+      return;}
 
-    // Find the ship in the catalog
-    const shipToAdd = this.catalog.find(s => s.id === this.selectedShipId);
-    if (!shipToAdd) return;
+    // First: fetch current user inventory
+    console.log('Fetching inventory for user ID:', this.userId);
+    this.inventoryService.getInventory(this.userId).subscribe({
+      next: (inventory: InventoryItem[]) => {
+        const existingItem = inventory.find(item => item.shipId === shipToAdd.id);
 
-    const quantityToAdd = this.quantity > 0 ? this.quantity : 1;
-    
-    if (shipToAdd) {
-      const inventoryItem: InventoryItem = {
-        shipId: shipToAdd.id,
-        quantity: quantityToAdd,
-        selectedPilotId: undefined, // or set a default pilot ID if needed
-        selectedUpgradeIds: [],
-        points: 0
-      };
+        if (existingItem) {
+          // If ship already exists, update the quantity
+          const updatedItem = {
+            ...existingItem,
+            quantity: existingItem.quantity + this.quantity
+          };
 
-      this.inventoryService.addToInventory(6, inventoryItem).subscribe(() => {
-        this.inventoryUpdated.emit()
-      });
-    }
+          this.inventoryService.updateInventoryItem(this.userId, existingItem.shipId.toString(), updatedItem)
+            .subscribe({
+              next: () => {
+                console.log('Inventory item updated.');
+                this.resetForm();
+                this.shipAdded.emit();
+              },
+              error: err => console.error('Failed to update inventory:', err)
+            });
+
+        } else {
+          // Otherwise, create a new entry
+          const newInventoryItem = {
+            shipId: shipToAdd.id,
+            quantity: this.quantity,
+            selectedPilotId: 0,
+            selectedUpgrades: [],
+            points: 0,
+          };
+
+          this.inventoryService.addToInventory(this.userId, newInventoryItem)
+            .subscribe({
+              next: () => {
+                console.log('Inventory item added.');
+                this.resetForm();
+                this.shipAdded.emit();
+              },
+              error: err => console.error('Failed to add new item:', err)
+            });
+        } 
+      },
+      error: err => console.error('Failed to fetch inventory:', err)
+    });
   }
 
   /*addFaction(): void {
@@ -176,6 +212,14 @@ export class InventoryAddComponent {
 
   get selectedShipId(): number | undefined {
     return this._selectedShipId;
+  }
+
+  resetForm(): void {
+    this.selectedShipId = 0;
+    this.quantity = 1;
+    if (this.shipSelect) {
+      this.shipSelect.nativeElement.value = '';
+    }
   }
 
 }

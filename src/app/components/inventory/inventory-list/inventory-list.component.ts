@@ -36,14 +36,7 @@ export class InventoryListComponent implements OnInit{
       this.inventory = items;
       console.log('Inventory loaded:', this.inventory);
     });*/
-    this.inventory.forEach(item => {
-      if (!item.selectedPilotId) {
-        const pilots = this.getPilotsForShip(this.getShip(item.shipId)?.name || '');
-        console.log('Available pilots for ship:', pilots);
-        item.selectedPilotId = pilots.length > 0 ? pilots[0].id : undefined;
-        console.log('Selected pilot ID:', item.selectedPilotId);
-      }
-    });
+    
     
 
     console.log('Inventory loaded:', this.inventory);
@@ -54,6 +47,8 @@ export class InventoryListComponent implements OnInit{
     console.log('Pilots loaded:', this.pilots);
     this.upgradeService.getUpgrades().subscribe(upgrades => this.upgrades = upgrades);
     console.log('Upgrades loaded:', this.upgrades);
+
+    
   }
 
   getShip(id: number): Ship | undefined {

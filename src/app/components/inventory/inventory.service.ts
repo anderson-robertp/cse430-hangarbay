@@ -36,6 +36,7 @@ export class InventoryService {
               ship,
               shipId: inv.shipId,
               quantity: inv.quantity,
+              selectedPilotId: inv.pilotId,
               upgrades: inv.upgradeIds,
               points: inv.totalPoints
             };
@@ -47,18 +48,10 @@ export class InventoryService {
 
   addToInventory(userId: number, item: InventoryItem): Observable<any> {
     return this.http.post(`http://localhost:3000/api/users/${userId}/inventory`, item)
-    .subscribe({
-      next: (response) => {
-        console.log('Item added to inventory:', response);
-        this.inventoryChangedEvent.next([item]); // Emit the new item
-      },
-      error: (error) => {
-        console.error('Error adding item to inventory:', error);
-      }
-    })
     .pipe(
       tap(() => {
         this.inventoryChangedEvent.next([item]); // Emit the new item
+        console.log('Inventory item added.' + item.shipId);
       }),
       catchError(error => {
         console.error('Error adding to inventory:', error);
@@ -66,6 +59,21 @@ export class InventoryService {
       })
     );
   }
+
+  updateInventoryItem(userId: number, shipId: string, item: InventoryItem): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${userId}/inventory/${shipId}`, item)
+    .pipe(
+      tap(() => {
+        this.inventoryChangedEvent.next([item]); // Emit the updated item
+        console.log('Inventory item updated.' + item.shipId);
+      }),
+      catchError(error => {
+        console.error('Error updating inventory item:', error);
+        return of(null); // Return an empty observable on error
+      })
+    );
+  }
+
 
 
   getShips(): Observable<Ship[]> {

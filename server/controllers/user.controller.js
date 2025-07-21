@@ -91,3 +91,25 @@ exports.addShipToInventory = async (req, res) => {
   }
 }
 
+// update ship in user inventory
+exports.updateShipInInventory = async (req, res) => {
+  try {
+    const user = await User.findOne({ id: req.params.id });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const shipId = parseInt(req.params.shipId, 10);
+    const inventoryEntry = user.inventory.find(entry => entry.shipId === shipId);
+    if (!inventoryEntry) {
+      return res.status(404).json({ message: 'Ship not found in inventory' });
+    }
+
+    Object.assign(inventoryEntry, req.body);
+    await user.save();
+
+    res.json(inventoryEntry);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+}

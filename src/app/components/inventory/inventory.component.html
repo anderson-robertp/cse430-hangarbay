@@ -3,18 +3,16 @@
 
   <div class="row">
     <!-- Left: Inventory list -->
-    <div class="col-md-7">
+     <span class="border border-primary"></span>
+    <div class="col-md-7 border border-primary">
       <app-inventory-list [inventory]="userShips"></app-inventory-list>
     </div>
 
     <!-- Right: Add ship from catalog -->
     <div class="col-md-5">
       <div class="card shadow-sm">
-        <div class="card-header bg-success text-white">
-          <h5 class="mb-0">Add Ship to Inventory</h5>
-        </div>
-        <div class="card-body">
-          <app-inventory-add (inventoryUpdated)="reloadInventory()"></app-inventory-add>
+        <div class="card-body border border-secondary">
+          <app-inventory-add (shipAdded)="reloadInventory()" [userId]="someUserId"></app-inventory-add>
         </div>
       </div>
     </div>

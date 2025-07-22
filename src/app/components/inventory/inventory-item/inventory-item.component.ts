@@ -8,6 +8,7 @@ import { Upgrade } from '../../upgrades/upgrade.model';
 import { InventoryService } from '../inventory.service';
 import { PilotService } from '../../pilots/pilot.service';
 import { UpgradeService } from '../../upgrades/upgrade.service';
+import { User } from '../../users/user.model';
 
 @Component({
   selector: 'app-inventory-item',
@@ -17,12 +18,15 @@ import { UpgradeService } from '../../upgrades/upgrade.service';
 })
 export class InventoryItemComponent {
   @Input() item!: InventoryItem;
+  @Input() userId!: number;
 
-  inventory: InventoryItem[] = [];
+  //inventory: InventoryItem[] = [];
   ship: Ship | undefined;
   ships: Ship[] = [];
   pilots: Pilot[] = [];
   upgrades: Upgrade[] = [];
+
+  isEditing = false;
 
   constructor(private inventoryService: InventoryService,
               private pilotService: PilotService,
@@ -33,6 +37,7 @@ export class InventoryItemComponent {
     this.inventoryService.getShips().subscribe(ships => this.ships = ships);
     this.pilotService.getPilots().subscribe(pilots => this.pilots = pilots);
     this.upgradeService.getUpgrades().subscribe(upgrades => this.upgrades = upgrades);
+    console.log(this.item)
   }
 
   getShip(id: number): Ship | undefined {
@@ -79,9 +84,9 @@ export class InventoryItemComponent {
     //console.log('Upgrade changed:', item.selectedUpgradeIds, this.getUpgradeById(selectedValue));
   }
 
-  getTotalInventoryPoints(): number {
-    return this.inventory.reduce((sum, item) => sum + (item.points || 0), 0);
-  }
+  /*getTotalInventoryPoints(): number {
+    return this.item.points.reduce((sum, item) => sum + (item.points || 0), 0);
+  }*/
 
   getTotalPointsForItem(item: InventoryItem): number {
     const pilot = this.getPilotById(item.selectedPilotId);
@@ -132,5 +137,31 @@ export class InventoryItemComponent {
   filterUpgradesBySlot(slot: string): Upgrade[] {
     return this.upgrades.filter(upg => upg.slot === slot);
   }
+
+  toggleEdit() {
+    this.isEditing = !this.isEditing;
+  }
+
+  getPilotName(pilotId: number | undefined): string {
+    if (!pilotId) return 'None';
+    const pilot = this.getPilotById(pilotId);
+    return pilot ? pilot.name : 'Unknown';
+  }
+
+  getShipName(shipId: number | undefined): string {
+    if (!shipId) return 'None';
+    const ship = this.getShip(shipId);
+    console.log(ship)
+    return ship ? ship.name : 'Unknown';
+  }
+
+  getPilotToDisplay(item: InventoryItem): Pilot | undefined {
+    const selectedPilot = this.getPilotById(item.selectedPilotId);
+    if (selectedPilot) return selectedPilot;
+
+    const pilotsForShip = this.getPilotsForShip(this.getShip(item.shipId)?.name!);
+    return pilotsForShip.length > 0 ? pilotsForShip[0] : undefined;
+  }
+
 
 }

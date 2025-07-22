@@ -6,5 +6,5 @@ export interface User {
   username: string;
   email: string;
   inventory: FleetShip[];      // IDs of pilot/upgrades/etc
-  fleets: string[];         // ObjectId strings referencing Fleet documents
+  fleets: number[];         // ObjectId strings referencing Fleet documents
 }

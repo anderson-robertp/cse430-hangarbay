@@ -1,12 +1,11 @@
-<h5>Fleet Item Works</h5>
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title">{{ fleet.name }}</h5>
+    <h4 class="card-title">{{ fleet.name }}</h4>
     <p class="card-text">{{ fleet.notes }}</p>
     <p class="card-text">Total Points: {{ getFleetPoints(fleet) }} pts</p>
     <ul class="list-group mb-3">
       <li *ngFor="let ship of fleet.ships" class="list-group-item">
-        {{ getShipName(ship.shipId) }} x{{ ship.quantity }} — {{ ship.totalPoints }} pts
+        {{ shipNames[ship.shipId] || 'Loading...' }} — {{ ship.totalPoints }} pts
       </li>
     </ul>
     <button class="btn btn-primary" (click)="onSelect()">Edit</button>

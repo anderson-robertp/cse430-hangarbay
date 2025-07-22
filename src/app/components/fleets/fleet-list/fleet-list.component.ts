@@ -1,8 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { forkJoin } from 'rxjs';
 
 import { Fleet,FleetShip } from '../fleet.model';
 import { Ship } from '../../inventory/ship.model';
+import { User } from '../../users/user.model';
+
 import { FleetService } from '../fleet.service';
+import { UserService } from '../../users/user.service';
 
 @Component({
   selector: 'app-fleet-list',
@@ -17,19 +21,44 @@ export class FleetListComponent {
   @Input() fleets: Fleet[] = [];
   @Output() select = new EventEmitter<Fleet>();
   @Output() delete = new EventEmitter<Fleet>();
-  @Input() userId!: number;
+  @Input() userId: number = 6;
+  filteredFleets: Fleet[] = [];
+  user: User = {} as User;
 
   ships: Ship[] = [];
 
   selectedFleet?: Fleet | null;
 
-  constructor(private fleetService: FleetService) {}
+  constructor(private fleetService: FleetService,
+              private userService: UserService
+            ) {}
 
   ngOnInit(): void {
-    this.fleetService.getUserFleets(6).subscribe((fleets: Fleet[]) => {
-      console.log('Fleets loaded:', fleets);
-      this.fleets = fleets;
+    forkJoin({
+      user: this.userService.getUserById(this.userId),
+      fleets: this.fleetService.getFleets()
+    }).subscribe({
+      next: ({ user, fleets }) => {
+        this.user = user;
+        this.fleets = fleets;
+
+        console.log('User loaded:', user);
+        console.log('Fleets loaded:', fleets);
+
+        this.filteredFleets = fleets.filter(fleet =>
+          user.fleets?.includes(fleet.id)
+        );
+
+        console.log('FilteredFleets', this.filteredFleets);
+      },
+      error: (err) => {
+        console.error('Failed to load user or fleets', err);
+      }
     });
+  }
+
+  getUserFleets(){
+    
   }
 
   getShip(id: number): Ship | undefined {

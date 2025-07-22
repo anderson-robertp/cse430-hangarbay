@@ -1,6 +1,25 @@
+<h2 class="mb-4 text-center">Inventory Management</h2>
 <div class="row">
-  <div class="col-md-5">
-    <app-inventory-list></app-inventory-list>
+  <div class="col-12">
+    <div class="row justify-content-center g-4">
+      <!-- Left: Inventory list -->
+      <div class="col-md-4">
+        <app-inventory-list></app-inventory-list>
+      </div>
+      <div class="col-md-2"></div>
+      <!-- Right: Add ship from catalog -->
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-body border border-secondary">
+            <app-inventory-add (shipAdded)="reloadInventory()" [userId]="userId"></app-inventory-add>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+
+
+
   
 

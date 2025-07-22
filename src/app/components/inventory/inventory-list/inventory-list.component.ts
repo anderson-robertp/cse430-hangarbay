@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 
 import { InventoryService } from '../inventory.service';
 import { PilotService } from '../../pilots/pilot.service';
@@ -21,9 +21,13 @@ export class InventoryListComponent implements OnInit{
   pilots: Pilot[] = [];
   upgrades: Upgrade[] = [];
   //userShips: InventoryItem[] = [];
-  someUserId: number = 6; // Example user ID, replace with actual user ID as needed
+  @Output() userId: number = 6; // Example user ID, replace with actual user ID as needed
 
   @Input() ships: Ship[] = [];
+
+  selectedShipId: number | null = null;
+
+
 
 
   constructor(
@@ -46,7 +50,7 @@ export class InventoryListComponent implements OnInit{
         this.ships = ships;
 
         // Load inventory last, after pilots and ships are ready
-        this.inventoryService.getInventory(this.someUserId).subscribe(items => {
+        this.inventoryService.getInventory(this.userId).subscribe(items => {
           this.inventory = items;
           this.inventory.forEach(item => {
             if (!item.selectedPilotId) {
@@ -178,5 +182,9 @@ export class InventoryListComponent implements OnInit{
       this.inventory = items;
       //console.log('Inventory reloaded:', this.userShips);
     });
+  }
+
+  selectShip(shipId: number): void {
+    this.selectedShipId = shipId;
   }
 }

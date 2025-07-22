@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   inventory: [inventoryEntrySchema],  // Embedded inventory schema
-  fleets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Fleet' }]
+  fleets: [{type: Number}]
 });
 
 module.exports = mongoose.model('User', userSchema);

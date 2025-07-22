@@ -1,22 +1,14 @@
 <div class="container mt-4">
-  <h2 class="mb-4 text-center">My Star Wars X-Wing Inventory</h2>
+  
 
   <div class="row">
     <!-- Left: Inventory list -->
     <div class="col-md-7 border border-primary">
-      <app-inventory-item *ngFor="let item of inventory" [item]="item"></app-inventory-item>
+      <h3 class="mb-4 text-center">Inventory List</h3>
+      <app-inventory-item *ngFor="let item of inventory" [item]="item" [userId]="userId"></app-inventory-item>
     </div>
 
-    <!-- Right: Add ship from catalog -->
-    <div class="col-md-5">
-      <div class="card shadow-sm">
-        <div class="card-body border border-secondary">
-          <app-inventory-add (shipAdded)="reloadInventory()" [userId]="someUserId"></app-inventory-add>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    
 <!-- Empty inventory message -->
 <div *ngIf="inventory.length === 0" class="alert alert-info text-center">
   Your inventory is empty. Please add ships from the catalog.

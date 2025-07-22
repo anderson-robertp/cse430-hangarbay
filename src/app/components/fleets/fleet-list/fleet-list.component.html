@@ -1,18 +1,21 @@
-<h5>Fleet List Works</h5>
-<ul class="list-group">
-  <app-fleet-item
-    *ngFor="let fleet of fleets"
-    [fleet]="fleet"
-    (select)="select.emit(fleet)"
-    (delete)="delete.emit(fleet)">
-  </app-fleet-item>
-</ul>
-<div class="row">
-  <div class="col-xs-12">
-    <app-fleet-edit
-      *ngIf="selectedFleet"
-      [fleet]="selectedFleet"
-      (saveFleet)="onFleetSaved($event)">
-    </app-fleet-edit>
+<div class="container mt-4">
+  <h3 class="mb-4 text-center">Fleet Management</h3>
+  <ul class="list-group">
+    <app-fleet-item
+      *ngFor="let fleet of filteredFleets"
+      [fleet]="fleet"
+      (select)="select.emit(fleet)"
+      (delete)="delete.emit(fleet)">
+    </app-fleet-item>
+  </ul>
+  <div class="row">
+    <div class="col-xs-12">
+      <app-fleet-edit
+        *ngIf="selectedFleet"
+        [fleet]="selectedFleet"
+        (saveFleet)="onFleetSaved($event)">
+      </app-fleet-edit>
+    </div>
   </div>
 </div>
+

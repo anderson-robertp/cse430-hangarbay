@@ -19,9 +19,13 @@ export class FleetService {
     return MOCKFLEETS;
   }*/
 
+  
+
   getFleets(): Observable<Fleet[]> {
     return this.http.get<Fleet[]>(this.apiUrl);
   }
+
+  
 
   addFleet(fleet: Fleet): void {
     this.fleets.push(fleet);

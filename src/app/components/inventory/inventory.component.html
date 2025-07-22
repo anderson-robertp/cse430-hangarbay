@@ -1,21 +1,6 @@
-<div class="container mt-4">
-  <h2 class="mb-4 text-center">My Star Wars X-Wing Inventory</h2>
-
-  <div class="row">
-    <!-- Left: Inventory list -->
-     <span class="border border-primary"></span>
-    <div class="col-md-7 border border-primary">
-      <app-inventory-list [inventory]="userShips"></app-inventory-list>
-    </div>
-
-    <!-- Right: Add ship from catalog -->
-    <div class="col-md-5">
-      <div class="card shadow-sm">
-        <div class="card-body border border-secondary">
-          <app-inventory-add (shipAdded)="reloadInventory()" [userId]="someUserId"></app-inventory-add>
-        </div>
-      </div>
-    </div>
+<div class="row">
+  <div class="col-md-5">
+    <app-inventory-list></app-inventory-list>
   </div>
-</div>
+  
 

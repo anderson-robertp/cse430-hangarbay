@@ -12,7 +12,7 @@ import { Upgrade } from '../../upgrades/upgrade.model';
 @Component({
   selector: 'app-inventory-list',
   templateUrl: './inventory-list.component.html',
-  styleUrl: './inventory-list.component.scss',
+  styleUrls: ['./inventory-list.component.scss'],
   standalone: false
 })
 export class InventoryListComponent implements OnInit{
@@ -20,10 +20,11 @@ export class InventoryListComponent implements OnInit{
   //ships: Ship[] = [];
   pilots: Pilot[] = [];
   upgrades: Upgrade[] = [];
+  //userShips: InventoryItem[] = [];
+  someUserId: number = 6; // Example user ID, replace with actual user ID as needed
 
   @Input() ships: Ship[] = [];
 
-  @Input() selectedPilotId: number | undefined;
 
   constructor(
     private inventoryService: InventoryService,
@@ -32,24 +33,34 @@ export class InventoryListComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    /*this.inventoryService.getInventory(6).subscribe(items => {
-      this.inventory = items;
-      console.log('Inventory loaded:', this.inventory);
-    });*/
-    
-    
+  // Load pilots
+  this.pilotService.getPilots().subscribe(pilots => {
+    this.pilots = pilots;
 
-    //console.log('Inventory loaded:', this.inventory);
-    this.inventoryService.getShips().subscribe(ships => this.ships = ships);
-    //console.log('Ships loaded:', this.ships);
-    
-    this.pilotService.getPilots().subscribe(pilots => this.pilots = pilots);
-    //console.log('Pilots loaded:', this.pilots);
-    this.upgradeService.getUpgrades().subscribe(upgrades => this.upgrades = upgrades);
-    //console.log('Upgrades loaded:', this.upgrades);
+    // Load upgrades
+    this.upgradeService.getUpgrades().subscribe(upgrades => {
+      this.upgrades = upgrades;
 
-    
-  }
+      // Load ships
+      this.inventoryService.getShips().subscribe(ships => {
+        this.ships = ships;
+
+        // Load inventory last, after pilots and ships are ready
+        this.inventoryService.getInventory(this.someUserId).subscribe(items => {
+          this.inventory = items;
+          this.inventory.forEach(item => {
+            if (!item.selectedPilotId) {
+              const ship = this.getShip(item.shipId);
+              const availablePilots = this.getPilotsForShip(ship?.name || '');
+              item.selectedPilotId = availablePilots.length > 0 ? availablePilots[0].id : undefined;
+            }
+            this.recalculateItemPoints(item);
+          });
+        });
+      });
+    });
+  });
+}
 
   getShip(id: number): Ship | undefined {
     //console.log('Getting ship with ID:', id);
@@ -108,7 +119,7 @@ export class InventoryListComponent implements OnInit{
   removeFromInventory(item: InventoryItem): void {
     this.inventory = this.inventory.filter(inv => inv.shipId !== item.shipId || inv.selectedPilotId !== item.selectedPilotId);
     this.inventoryService.deleteShip(item.shipId).subscribe(() => {
-      //console.log('Ship removed from inventory:', item.shipId);
+      this.reloadInventory();
     });
   }
 
@@ -160,5 +171,12 @@ export class InventoryListComponent implements OnInit{
       .reduce((sum, val) => sum + val, 0);
 
     return pilotPoints + upgradePoints;
+  }
+
+  reloadInventory(): void {
+    this.inventoryService.getInventory(6).subscribe((items: InventoryItem[]) => {
+      this.inventory = items;
+      //console.log('Inventory reloaded:', this.userShips);
+    });
   }
 }

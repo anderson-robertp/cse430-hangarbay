@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Ship } from './ship.model';
 import { Observable, of, Subject } from 'rxjs';
 import { map, catchError, switchMap, tap } from 'rxjs/operators';
@@ -47,7 +47,8 @@ export class InventoryService {
   }
 
   addToInventory(userId: number, item: InventoryItem): Observable<any> {
-    return this.http.post(`http://localhost:3000/api/users/${userId}/inventory`, item)
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(`http://localhost:3000/api/users/${userId}/inventory`, item, {headers: headers})
     .pipe(
       tap(() => {
         this.inventoryChangedEvent.next([item]); // Emit the new item
@@ -61,7 +62,8 @@ export class InventoryService {
   }
 
   updateInventoryItem(userId: number, shipId: string, item: InventoryItem): Observable<any> {
-    return this.http.put(`http://localhost:3000/api/users/${userId}/inventory/${shipId}`, item)
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put(`http://localhost:3000/api/users/${userId}/inventory/${shipId}`, item, {headers: headers})
     .pipe(
       tap(() => {
         this.inventoryChangedEvent.next([item]); // Emit the updated item
@@ -80,7 +82,8 @@ export class InventoryService {
     return this.http.get<Ship[]>(this.apiUrl);
   }
 
-  getShip(id: string): Observable<Ship> {
+  getShip(id: number): Observable<Ship> {
+    console.log("Ship Id: " + id)
     return this.http.get<Ship>(`${this.apiUrl}/${id}`);
   }
 

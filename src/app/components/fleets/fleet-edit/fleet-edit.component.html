@@ -1,17 +1,36 @@
-<form (submit)="save()">
-  <div class="form-group">
-    <input type="text" [(ngModel)]="fleet.name" name="fleetName" class="form-control" placeholder="Fleet Name" required />
-  </div>
+<h5>Fleet Edit Works</h5>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card p-3 mt-3">
+      <h3>Edit Fleet: {{ fleet.name }}</h3>
+      <div class="mb-2">
+        <label for="fleetName">Name</label>
+        input id="fleetName" class="form-control" [(ngModel)]="fleet.name" />
+      </div>
 
-  <label>Ships:</label>
-  <div class="form-check" *ngFor="let ship of inventory">
-    <input
-      type="checkbox"
-      class="form-check-input"
-      [checked]="isShipInFleet(ship)"
-      (change)="toggleShip(ship)">
-    {{ ship.name }}
-  </div>
+      <div class="mb-2">
+        <label for="fleetNotes">Notes</label>
+        <textarea id="fleetNotes" class="form-control" [(ngModel)]="fleet.notes"></textarea>
+      </div>
 
-  <button class="btn btn-primary mt-2">Save Fleet</button>
-</form>
+      <hr />
+      <h5>Ships</h5>
+      <ul class="list-group mb-3">
+        <li *ngFor="let ship of fleet.ships; let i = index" class="list-group-item">
+          {{ getShipName(ship.shipId) }} x{{ ship.quantity }} — {{ ship.totalPoints }} pts
+          <button class="btn btn-sm btn-danger float-end" (click)="removeShip(i)">Remove</button>
+        </li>
+      </ul>
+
+      <!-- Inventory Add (embedded ship selector) -->
+      
+
+      <div class="mt-3 text-end">
+        <strong>Total: {{ getFleetPoints(fleet) }} pts</strong>
+        <br />
+        <button class="btn btn-primary mt-2" (click)="saveFleet()">Save Fleet</button>
+      </div>
+    </div>
+
+  </div>
+</div>

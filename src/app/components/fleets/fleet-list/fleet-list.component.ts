@@ -1,7 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { Fleet } from '../fleet.model';
+import { Fleet,FleetShip } from '../fleet.model';
 import { Ship } from '../../inventory/ship.model';
+import { FleetService } from '../fleet.service';
 
 @Component({
   selector: 'app-fleet-list',
@@ -20,14 +21,39 @@ export class FleetListComponent {
 
   ships: Ship[] = [];
 
-  constructor() {}
+  selectedFleet?: Fleet | null;
 
-  ngOnInit(): void {}
+  constructor(private fleetService: FleetService) {}
+
+  ngOnInit(): void {
+    this.fleetService.getUserFleets(6).subscribe((fleets: Fleet[]) => {
+      console.log('Fleets loaded:', fleets);
+      this.fleets = fleets;
+    });
+  }
 
   getShip(id: number): Ship | undefined {
     return this.ships.find(ship => ship.id === id);
   }
 
+  onFleetSelected(fleet: Fleet): void {
+    this.selectedFleet = { ...fleet };
+    this.select.emit(fleet);
+  }
+
+  onFleetSaved(event: Event): void {
+    if (this.selectedFleet) {
+      this.fleetService.updateFleet(this.selectedFleet).subscribe(updatedFleet => {
+        const index = this.fleets.findIndex(f => f.id === updatedFleet.id);
+        if (index !== -1) {
+          this.fleets[index] = updatedFleet;
+        } else {
+          this.fleets.push(updatedFleet);
+        }
+        this.selectedFleet = null;
+      });
+    }
+  }
 
 
   onSelect(fleet: Fleet) {

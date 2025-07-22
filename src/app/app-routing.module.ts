@@ -9,8 +9,6 @@ import { ChatListComponent } from './components/chat/chat-list/chat-list.compone
 
 const routes: Routes = [
   { path: '', component: InventoryComponent },
-  { path: 'ships', component: InventoryListComponent },
-  { path: 'add', component: InventoryAddComponent },
   { path: 'fleets', component: FleetsComponent },
   { path: 'chat', component: ChatListComponent }
 ];

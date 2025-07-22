@@ -34,4 +34,8 @@ export class FleetService {
   updateFleet(fleet: Fleet): Observable<Fleet> {
     return this.http.put<Fleet>(`/api/fleets/${fleet.id}`, fleet);
   }
+
+  getUserFleets(userId: number): Observable<Fleet[]> {
+    return this.http.get<Fleet[]>(`${this.apiUrl}?userId=${userId}`);
+  }
 }

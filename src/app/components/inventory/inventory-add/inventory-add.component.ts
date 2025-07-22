@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, ViewChild, Input } from '@angular/core
 import { InventoryService } from '../inventory.service';
 import { Ship } from '../ship.model';
 import { InventoryItem } from '../inventory.model';
+import { FleetShip } from '../../fleets/fleet.model';
 
 @Component({
   selector: 'app-inventory-add',
@@ -17,11 +18,13 @@ export class InventoryAddComponent {
   selectedPilotId: number | undefined;
 
   @ViewChild('shipSelect') shipSelect: any;
-  @ViewChild('quantity') quantity: number = 1;
+  @ViewChild('quantityInput') quantityInput: any;
+  quantity: number = 1;
 
   @Input() userId!: number; // Default user ID, can be set from parent component
 
-  
+  @Input() fromFleet = false;
+  shipSelected: EventEmitter<FleetShip> = new EventEmitter<FleetShip>();
 
   @Output() inventoryUpdated = new EventEmitter<void>();
 
@@ -105,7 +108,7 @@ export class InventoryAddComponent {
             quantity: this.quantity,
             selectedPilotId: 0,
             selectedUpgrades: [],
-            points: 0,
+            points: 1,
           };
 
           this.inventoryService.addToInventory(this.userId, newInventoryItem)
@@ -212,6 +215,26 @@ export class InventoryAddComponent {
 
   get selectedShipId(): number | undefined {
     return this._selectedShipId;
+  }
+
+  addShipToFleet(event: Event): void {
+    event.preventDefault();
+    if (!this.selectedShipId || this.quantity <= 0) {
+      console.error('No ship selected or invalid quantity.');
+      return;
+    }
+
+    const fleetShip: FleetShip = {
+      shipId: this.selectedShipId,
+      quantity: this.quantity,
+      totalPoints: 0, // This will be calculated later
+      pilotId: this.selectedPilotId || undefined,
+      upgradeIds: []
+    };
+
+    this.shipSelected.emit(fleetShip);
+    this.resetForm();
+    
   }
 
   resetForm(): void {

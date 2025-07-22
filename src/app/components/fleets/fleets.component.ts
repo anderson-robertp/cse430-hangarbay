@@ -9,6 +9,7 @@ import { InventoryService } from '../inventory/inventory.service';
 import { FleetService } from './fleet.service';
 import { PilotService } from '../pilots/pilot.service';
 import { UpgradeService } from '../upgrades/upgrade.service';
+import { Observable } from 'rxjs';
 
 
 
@@ -19,19 +20,38 @@ import { UpgradeService } from '../upgrades/upgrade.service';
   styleUrl: './fleets.component.scss'
 })
 export class FleetsComponent {
-  fleets: Fleet[] = [];
-  selectedFleet: Fleet | null = null;
+  
+  selectedFleet: Fleet = { id: 0, name: '', ships: [] };
 
   @Input() fleet: Fleet = { id: 0, name: '', ships: [] };
 
   @Output() deleteFleet = new EventEmitter<Fleet>();
 
-  constructor(private fleetService: FleetService) {}
+  @Output() selectFleet = new EventEmitter<Fleet>();
+
+  @Input() userId: number = 6; // Example user ID, replace with actual user ID as needed
+
+  @Output() fleets: Fleet[] = [];
+
+  ships: Ship[] = [];
+  pilots: Pilot[] = [];
+
+  constructor(private fleetService: FleetService,
+              private inventoryService: InventoryService,
+              private pilotService: PilotService,
+              private upgradeService: UpgradeService
+  ) {}
 
   ngOnInit() {
-    this.fleetService.getFleets().subscribe((fleets: Fleet[]) => {
-      this.fleets = fleets;
-    });
+    
+  }
+
+  getShip(id: number): Observable<Ship> {
+    return this.inventoryService.getShip(id);
+  }
+
+  getPilotsForShip(shipName: string): Observable<Pilot[]> {
+    return this.pilotService.getPilotsByShip(shipName);
   }
 
   onFleetSelected(fleet: Fleet) {
@@ -42,8 +62,10 @@ export class FleetsComponent {
     this.fleets = this.fleets.filter(f => f.id !== fleet.id);
   }
 
-  onFleetSaved(fleet: Fleet): void {
-    this.fleetService.updateFleet(fleet)?.subscribe({
+  onFleetSaved(event: Event): void {
+    event.preventDefault();
+    
+    this.fleetService.updateFleet(this.selectedFleet)?.subscribe({
       next: () => {
         this.fleetService.getFleets().subscribe(fleets => {
           this.fleets = fleets;

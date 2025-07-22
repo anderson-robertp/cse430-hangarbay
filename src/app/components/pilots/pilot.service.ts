@@ -19,6 +19,10 @@ export class PilotService {
     return this.http.get<Pilot>(`${this.apiUrl}/${id}`);
   }
 
+  getPilotsByShip(shipName: string): Observable<Pilot[]> {
+    return this.http.get<Pilot[]>(`${this.apiUrl}?ship=${shipName}`);
+  }
+
   addPilot(pilot: Pilot): Observable<Pilot> {
     return this.http.post<Pilot>(this.apiUrl, pilot);
   }

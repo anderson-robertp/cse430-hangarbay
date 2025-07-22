@@ -1,0 +1,67 @@
+<div class="row g-2 align-items-start">
+    
+    <!-- Left: Details and selectors -->
+    <div class="col-md-8">
+      <div class="card-body">
+        <h4 class="card-title">{{ getShip(item.shipId)?.name }}</h4>
+        <p class="card-text">Quantity: {{ item.quantity }}</p>
+
+        <label for="pilotSelect-{{ item.shipId }}">Pilot:</label>
+        <select
+          id="pilotSelect-{{ item.shipId }}"
+          class="form-select mb-2"
+          [value]="item.selectedPilotId"
+          (change)="onPilotChange(item, $event)"
+        >
+          <option value="">-- Select Pilot --</option>
+          <option *ngFor="let pilot of getPilotsForShip(getShip(item.shipId)?.name!)" [value]="pilot.id">
+            {{ pilot.name }} ({{ pilot.points }} pts)
+          </option>
+        </select>
+
+        <div *ngIf="item.selectedPilotId">
+          <h6>Upgrades:</h6>
+          <div class="row">
+            <div class="col-md-6 mb-2" *ngFor="let slot of getSlotsForItem(item); let i = index">
+              <label class="form-label">{{ slot }}:</label>
+              <select
+                class="form-select"
+                [value]="item.selectedUpgradeIds?.[i]"
+                (change)="onUpgradeChange(item, i, $event)"
+              >
+                <option value="">-- None --</option>
+                <option *ngFor="let upg of filterUpgradesBySlot(slot)" [value]="upg.id">
+                  {{ upg.name }} ({{ upg.points }} pts)
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <p class="fw-bold mt-3">Total Points: {{ getTotalPointsForItem(item) }}</p>
+        
+        <div class="d-flex gap-2 mt-2">
+          <button class="btn btn-danger btn-sm" (click)="deleteShip(item.shipId)">Remove</button>
+          <button class="btn btn-secondary btn-sm" (click)="updateItem(item)">Update</button>
+          <button class="btn btn-info btn-sm" (click)="addToFleet(item)">Add to Fleet</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Pilot image -->
+    <div class="col-md-4 text-end">
+      <div *ngIf="getPilotById(item.selectedPilotId) as pilot">
+        <img
+          [src]="'assets/images/' + pilot.image"
+          [alt]="pilot.name"
+          class="img-fluid rounded"
+            style="max-height: 150px; max-width: 100%; object-fit: cover;"
+        />
+      </div>
+    </div>
+    
+  </div>
+  <hr />
+
+
+

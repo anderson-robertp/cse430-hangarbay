@@ -8,7 +8,7 @@
       <option *ngFor="let ship of catalog" [value]="ship.id">{{ ship.name }}</option>
     </select> <hr>
     <label for="quantity">Quantity:</label>
-    <input type="number" class="form-control mb-3" *ngIf="selectedShipId" [(ngModel)]="quantity" id="quantity" min="1" max="10" placeholder="Enter quantity" />
+    <input type="number" #quantityInput class="form-control mb-3" *ngIf="selectedShipId" [(ngModel)]="quantity" id="quantity" min="1" max="10" placeholder="Enter quantity" />
     <button class="btn btn-success" (click)="addShipFromCatalog()">Add to Inventory</button>
   </div>
 </div>

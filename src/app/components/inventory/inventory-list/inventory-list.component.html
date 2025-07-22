@@ -1,67 +1,23 @@
-<div *ngFor="let item of inventory" class="card inventory-card mb-3 border border-secondary rounded shadow-sm p-3 bg-light">
-  <hr>
-  <div class="row g-2 align-items-center">
-    <!-- Left: Card Body -->
-    <div class="col-md-8">
-      <div class="card-body">
-        <h4 class="card-title">{{ getShip(item.shipId)?.name }}</h4>
-        <p class="card-text">Quantity: {{ item.quantity }}</p>
+<div class="container mt-4">
+  <h2 class="mb-4 text-center">My Star Wars X-Wing Inventory</h2>
 
-        <label for="pilotSelect-{{ item.shipId }}">Pilot:</label>
-        <select
-          id="pilotSelect-{{ item.shipId }}"
-          class="form-select mb-2"
-          [value]="item.selectedPilotId"
-          (change)="onPilotChange(item, $event)"
-        >
-          <option value="">-- Select Pilot --</option>
-          <option *ngFor="let pilot of getPilotsForShip(getShip(item.shipId)?.name!)" [value]="pilot.id">
-            {{ pilot.name }} ({{ pilot.points }} pts)
-          </option>
-        </select>
-
-        <div *ngIf="item.selectedPilotId">
-          <h6>Upgrades:</h6>
-          <div class="row">
-            <div class="col-md-6 mb-2" *ngFor="let slot of getSlotsForItem(item); let i = index">
-              <label class="form-label">{{ slot }}:</label>
-              <select
-                class="form-select"
-                [value]="item.selectedUpgradeIds?.[i]"
-                (change)="onUpgradeChange(item, i, $event)"
-              >
-                <option value="">-- None --</option>
-                <option *ngFor="let upg of filterUpgradesBySlot(slot)" [value]="upg.id">
-                  {{ upg.name }} ({{ upg.points }} pts)
-                </option>
-              </select>
-          </div>
-        </div>
-
-    <!-- Right: Pilot Image -->
-    <div class="col-md-4 text-end pe-3">
-      <div *ngIf="getPilotById(item.selectedPilotId) as pilot">
-      <img
-        [src]="'assets/images/' + pilot.image"
-        alt="{{ pilot.name }}"
-        class="img-fluid"
-     />
-      </div>
-      
-    </div>
-
-    </div>
-  </div>
-  <div class="text-end mt-3">
-    <p class="fw-bold mt-2">Total Points: {{ getTotalPointsForItem(item) }}</p>
-  </div>
   <div class="row">
-    <button class="btn btn-danger btn-sm mt-2" (click)="deleteShip(item.shipId)">Remove</button>
-    <button class="btn btn-secondary btn-sm mt-2 ms-2" (click)="updateItem(item)">Update</button>
-    <button class="btn btn-info btn-sm mt-2 ms-2" (click)="addToFleet(item)">Add to Fleet</button>
+    <!-- Left: Inventory list -->
+    <div class="col-md-7 border border-primary">
+      <app-inventory-item *ngFor="let item of inventory" [item]="item"></app-inventory-item>
+    </div>
+
+    <!-- Right: Add ship from catalog -->
+    <div class="col-md-5">
+      <div class="card shadow-sm">
+        <div class="card-body border border-secondary">
+          <app-inventory-add (shipAdded)="reloadInventory()" [userId]="someUserId"></app-inventory-add>
+        </div>
+      </div>
+    </div>
   </div>
-  <hr>
 </div>
+<!-- Empty inventory message -->
 <div *ngIf="inventory.length === 0" class="alert alert-info text-center">
   Your inventory is empty. Please add ships from the catalog.
 </div>

@@ -61,7 +61,7 @@ export class InventoryService {
     );
   }
 
-  updateInventoryItem(userId: number, shipId: string, item: InventoryItem): Observable<any> {
+  updateInventoryItem(userId: number, shipId: number, item: InventoryItem): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put(`http://localhost:3000/api/users/${userId}/inventory/${shipId}`, item, {headers: headers})
     .pipe(

@@ -5,7 +5,7 @@ const inventoryEntrySchema = new mongoose.Schema({
   selectedPilotId: { type: Number, required: true },  // ID from your Pilot list
   selectedUpgradeIds: [{ type: Number }],  // IDs from Upgrade list
   quantity: { type: Number, required: true },
-  points: { type: Number, required: true }
+  points: { type: Number }
 }, { _id: false });
 
 const userSchema = new mongoose.Schema({

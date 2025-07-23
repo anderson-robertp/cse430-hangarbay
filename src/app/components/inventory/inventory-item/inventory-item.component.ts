@@ -1,13 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Ship } from '../ship.model';
 import { InventoryItem } from '../inventory.model';
 import { Pilot } from '../../pilots/pilot.model';
 import { Upgrade } from '../../upgrades/upgrade.model';
+import { FleetShip } from '../../fleets/fleet.model';
 
 import { InventoryService } from '../inventory.service';
 import { PilotService } from '../../pilots/pilot.service';
 import { UpgradeService } from '../../upgrades/upgrade.service';
+import { FleetService } from '../../fleets/fleet.service';
+
 import { User } from '../../users/user.model';
 
 @Component({
@@ -19,6 +22,9 @@ import { User } from '../../users/user.model';
 export class InventoryItemComponent {
   @Input() item!: InventoryItem;
   @Input() userId!: number;
+  @Input() reloadTrigger!: number;
+
+  shipSelected: EventEmitter<FleetShip> = new EventEmitter<FleetShip>();
 
   //inventory: InventoryItem[] = [];
   ship: Ship | undefined;
@@ -27,10 +33,12 @@ export class InventoryItemComponent {
   upgrades: Upgrade[] = [];
 
   isEditing = false;
+  isFleet = false;
 
   constructor(private inventoryService: InventoryService,
               private pilotService: PilotService,
-              private upgradeService: UpgradeService
+              private upgradeService: UpgradeService,
+              private fleetService: FleetService
   ) {}
 
   ngOnInit(): void {
@@ -115,15 +123,30 @@ export class InventoryItemComponent {
     }, 0);
     item.points = pilotPoints + upgradePoints;
 
-    this.inventoryService.updateInventoryItem(6, item.shipId.toString(), item).subscribe(() => {
+    this.inventoryService.updateInventoryItem(6, item.shipId, item).subscribe(() => {
       //console.log('Inventory item updated:', item);
     });
   }
 
-  addToFleet(item: InventoryItem): void {
-    console.log('Adding to fleet:', item);
-    // Implement fleet addition logic here
-  }
+  addShipToFleet(event: Event): void {
+      event.preventDefault();
+      if (!this.item.selectedPilotId || this.item.quantity <= 0) {
+        console.error('No ship selected or invalid quantity.');
+        return;
+      }
+  
+      const fleetShip: FleetShip = {
+        shipId: this.item.shipId,
+        quantity: this.item.quantity,
+        totalPoints: 0, // This will be calculated later
+        pilotId: this.item.selectedPilotId || undefined,
+        upgradeIds: []
+      };
+  
+      this.shipSelected.emit(fleetShip);
+      
+      
+    }
 
   getPilotsForShip(shipName: string): Pilot[] {
     return this.pilots.filter(pilot => pilot.ship === shipName);
@@ -161,6 +184,18 @@ export class InventoryItemComponent {
 
     const pilotsForShip = this.getPilotsForShip(this.getShip(item.shipId)?.name!);
     return pilotsForShip.length > 0 ? pilotsForShip[0] : undefined;
+  }
+
+  addToFleet(){
+    console.log('Not Sure What this is doing')
+  }
+
+  reloadInventory(){
+
+  }
+
+  toggleFleet() {
+    this.isFleet = !this.isFleet;
   }
 
 

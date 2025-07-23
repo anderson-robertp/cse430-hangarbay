@@ -15,7 +15,9 @@
               {{ isEditing ? 'Close' : 'Edit' }}
             </button>
             <button class="btn btn-danger btn-sm" (click)="deleteShip(item.shipId)">Remove</button>
-            <button class="btn btn-info btn-sm" (click)="addToFleet(item)">Add to Fleet</button>
+            <button class="btn btn-info btn-sm" (click)="toggleFleet()">
+              {{isFleet ? 'Close' : 'Add to Fleet'}}
+            </button>
           </div>
         </div>
      </div>
@@ -41,6 +43,14 @@
     [userId]="userId"
     (close)="toggleEdit()"
   ></app-inventory-edit>
+
+  <!-- Show fleet component -->
+   <app-inventory-fleet
+   *ngIf="isFleet"
+    [item]="item"
+    [userId]="userId"
+    (close)="toggleFleet()">
+   </app-inventory-fleet>
 </div>
 
 

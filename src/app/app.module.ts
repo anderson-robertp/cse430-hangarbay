@@ -12,6 +12,7 @@ import { InventoryAddComponent } from './components/inventory/inventory-add/inve
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { InventoryItemComponent } from './components/inventory/inventory-item/inventory-item.component';
 import { InventoryEditComponent } from './components/inventory/inventory-edit/inventory-edit.component';
+import { InventoryFleetComponent } from './components/inventory/inventory-fleet/inventory-fleet.component';
 import { FleetsComponent } from './components/fleets/fleets.component';
 import { FleetListComponent } from './components/fleets/fleet-list/fleet-list.component';
 import { FleetEditComponent } from './components/fleets/fleet-edit/fleet-edit.component';
@@ -31,6 +32,7 @@ import { ChatItemComponent } from './components/chat/chat-item/chat-item.compone
     InventoryAddComponent,
     InventoryItemComponent,
     InventoryEditComponent,
+    InventoryFleetComponent,
     FleetsComponent,
     FleetListComponent,
     FleetEditComponent,

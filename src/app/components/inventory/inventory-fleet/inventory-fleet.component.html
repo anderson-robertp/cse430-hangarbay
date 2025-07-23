@@ -1,0 +1,14 @@
+<div>
+  <label for="fleetSelect">Add to Fleet:</label>
+  <select [(ngModel)]="selectedFleetId" id="fleetSelect">
+    <option *ngFor="let fleet of filteredFleets" [value]="fleet.id">{{ fleet.name }}</option>
+    <option value="new">+ Create New Fleet</option>
+  </select>
+</div>
+
+<div *ngIf="selectedFleetId === 'new'">
+  <input type="text" [(ngModel)]="newFleetName" placeholder="Fleet name" />
+</div>
+
+<button (click)="onAddToFleet()">Add to Fleet</button>
+

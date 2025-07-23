@@ -35,6 +35,13 @@ export class UserService {
     );
   }
 
+  updateUser(id: number, user: User) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<User>(`http://localhost:3000/api/users/${id}`, user, {headers: headers}).pipe(
+      tap(user => console.log('User: ',id, 'updated', user))
+    );
+  }
+
   sortAndSend() {
     this.users.sort((a, b) => a.id - b.id);
     this.userChangedEvent.next(this.users.slice());

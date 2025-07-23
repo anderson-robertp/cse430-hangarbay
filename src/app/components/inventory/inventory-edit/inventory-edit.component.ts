@@ -6,6 +6,11 @@ import { Pilot } from '../../pilots/pilot.model';
 import { Upgrade } from '../../upgrades/upgrade.model';
 import { Ship } from '../ship.model';
 
+import { InventoryService } from '../inventory.service';
+import { PilotService } from '../../pilots/pilot.service';
+import { UpgradeService } from '../../upgrades/upgrade.service';
+import { FleetService } from '../../fleets/fleet.service';
+
 @Component({
   selector: 'app-inventory-edit',
   standalone: false,
@@ -18,11 +23,49 @@ export class InventoryEditComponent {
   @Input() item!: InventoryItem;
 
   @Output() close = new EventEmitter<void>();
+  @Output() inventoryUpdated = new EventEmitter<void>();
 
   pilots: Pilot[] = [];
   upgrades: Upgrade[] = [];
   ships: Ship[] = [];
   ship: Ship | undefined;
+  inventory: InventoryItem[] = [];
+
+  constructor(
+    private inventoryService: InventoryService,
+    private pilotService: PilotService,
+    private upgradeService: UpgradeService
+  ) { }
+
+  ngOnInit(): void {
+    // Load pilots
+    this.pilotService.getPilots().subscribe(pilots => {
+      this.pilots = pilots;
+
+      // Load upgrades
+      this.upgradeService.getUpgrades().subscribe(upgrades => {
+        this.upgrades = upgrades;
+
+        // Load ships
+        this.inventoryService.getShips().subscribe(ships => {
+          this.ships = ships;
+
+          // Load inventory last, after pilots and ships are ready
+          this.inventoryService.getInventory(this.userId).subscribe(items => {
+            this.inventory = items;
+            this.inventory.forEach(item => {
+              if (!item.selectedPilotId) {
+                const ship = this.getShip(item.shipId);
+                const availablePilots = this.getPilotsForShip(ship?.name || '');
+                item.selectedPilotId = availablePilots.length > 0 ? availablePilots[0].id : undefined;
+              }
+              this.recalculateItemPoints(item);
+            });
+          });
+        });
+      });
+    });
+  }
 
   closeEditor() {
     this.close.emit();
@@ -83,5 +126,17 @@ export class InventoryEditComponent {
 
   filterUpgradesBySlot(slot: string): Upgrade[] {
     return this.upgrades.filter(upg => upg.slot === slot);
+  }
+
+  onUpdateSubmit(): void {
+    this.inventoryService.updateInventoryItem(this.userId, this.item.shipId, this.item).subscribe({
+      next: (updatedUser) => {
+        console.log('Inventory updated:', updatedUser);
+        this.inventoryUpdated.emit();  // Notify parent to reload
+      },
+      error: (err) => {
+        console.error('Error updating inventory:', err);
+      }
+    });
   }
 }

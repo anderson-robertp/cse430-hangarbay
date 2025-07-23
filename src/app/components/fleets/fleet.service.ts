@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Fleet } from './fleet.model';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import MOCKFLEETS from './MOCKFLEETS.json';
 
 @Injectable({
@@ -41,5 +41,13 @@ export class FleetService {
 
   getUserFleets(userId: number): Observable<Fleet[]> {
     return this.http.get<Fleet[]>(`${this.apiUrl}?userId=${userId}`);
+  }
+
+  createFleet(newFleet: Fleet){
+    this.addFleet(newFleet)
+    return this.http.post<Fleet>(`http://localhost:3000/api/fleets`, newFleet).pipe(
+      tap(newFleet => console.log('Fleet Added: ', newFleet))
+    )
+
   }
 }

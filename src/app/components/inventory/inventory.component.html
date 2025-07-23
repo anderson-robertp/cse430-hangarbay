@@ -4,7 +4,7 @@
     <div class="row justify-content-center g-4">
       <!-- Left: Inventory list -->
       <div class="col-md-4">
-        <app-inventory-list></app-inventory-list>
+        <app-inventory-list [reloadTrigger]="reloadCounter"></app-inventory-list>
       </div>
       <div class="col-md-2"></div>
       <!-- Right: Add ship from catalog -->

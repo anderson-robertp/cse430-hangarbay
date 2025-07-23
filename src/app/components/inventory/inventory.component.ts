@@ -16,15 +16,20 @@ export class InventoryComponent implements OnInit {
 
   inventory: InventoryItem[] = [];
 
+  reloadCounter = 0;
+
   constructor( private inventoryService: InventoryService) {}
 
   ngOnInit(): void {}
 
   reloadInventory(): void {
-      this.inventoryService.getInventory(6).subscribe((items: InventoryItem[]) => {
-        this.inventory = items;
-        //console.log('Inventory reloaded:', this.userShips);
-      });
-    }
+    this.inventoryService.getInventory(6).subscribe((items: InventoryItem[]) => {
+      this.inventory = items;
+      console.log('Inventory reloaded:', this.inventory);
+    });
+    this.reloadCounter++;
+  }
+
+  
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 
 import { InventoryService } from '../inventory.service';
 import { PilotService } from '../../pilots/pilot.service';
@@ -8,6 +8,7 @@ import { Ship } from '../ship.model';
 import { InventoryItem } from '../inventory.model';
 import { Pilot } from '../../pilots/pilot.model';
 import { Upgrade } from '../../upgrades/upgrade.model';
+import { FleetShip } from '../../fleets/fleet.model';
 
 @Component({
   selector: 'app-inventory-list',
@@ -15,18 +16,19 @@ import { Upgrade } from '../../upgrades/upgrade.model';
   styleUrls: ['./inventory-list.component.scss'],
   standalone: false
 })
-export class InventoryListComponent implements OnInit{
+export class InventoryListComponent implements OnInit, OnChanges{
   @Input() inventory: InventoryItem[] = [];
-  //ships: Ship[] = [];
+  
   pilots: Pilot[] = [];
   upgrades: Upgrade[] = [];
-  //userShips: InventoryItem[] = [];
+  
   @Output() userId: number = 6; // Example user ID, replace with actual user ID as needed
 
   @Input() ships: Ship[] = [];
 
   selectedShipId: number | null = null;
 
+  @Input() reloadTrigger!: number;
 
 
 
@@ -37,34 +39,40 @@ export class InventoryListComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-  // Load pilots
-  this.pilotService.getPilots().subscribe(pilots => {
-    this.pilots = pilots;
+    // Load pilots
+    this.pilotService.getPilots().subscribe(pilots => {
+      this.pilots = pilots;
 
-    // Load upgrades
-    this.upgradeService.getUpgrades().subscribe(upgrades => {
-      this.upgrades = upgrades;
+      // Load upgrades
+      this.upgradeService.getUpgrades().subscribe(upgrades => {
+        this.upgrades = upgrades;
 
-      // Load ships
-      this.inventoryService.getShips().subscribe(ships => {
-        this.ships = ships;
+        // Load ships
+        this.inventoryService.getShips().subscribe(ships => {
+          this.ships = ships;
 
-        // Load inventory last, after pilots and ships are ready
-        this.inventoryService.getInventory(this.userId).subscribe(items => {
-          this.inventory = items;
-          this.inventory.forEach(item => {
-            if (!item.selectedPilotId) {
-              const ship = this.getShip(item.shipId);
-              const availablePilots = this.getPilotsForShip(ship?.name || '');
-              item.selectedPilotId = availablePilots.length > 0 ? availablePilots[0].id : undefined;
-            }
-            this.recalculateItemPoints(item);
+          // Load inventory last, after pilots and ships are ready
+          this.inventoryService.getInventory(this.userId).subscribe(items => {
+            this.inventory = items;
+            this.inventory.forEach(item => {
+              if (!item.selectedPilotId) {
+                const ship = this.getShip(item.shipId);
+                const availablePilots = this.getPilotsForShip(ship?.name || '');
+                item.selectedPilotId = availablePilots.length > 0 ? availablePilots[0].id : undefined;
+              }
+              this.recalculateItemPoints(item);
+            });
           });
         });
       });
     });
-  });
-}
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['reloadTrigger']) {
+      this.reloadInventory();
+    }
+  }
 
   getShip(id: number): Ship | undefined {
     //console.log('Getting ship with ID:', id);
@@ -145,15 +153,12 @@ export class InventoryListComponent implements OnInit{
     }, 0);
     item.points = pilotPoints + upgradePoints;
 
-    this.inventoryService.updateInventoryItem(6, item.shipId.toString(), item).subscribe(() => {
+    this.inventoryService.updateInventoryItem(6, item.shipId, item).subscribe(() => {
       //console.log('Inventory item updated:', item);
     });
   }
 
-  addToFleet(item: InventoryItem): void {
-    console.log('Adding to fleet:', item);
-    // Implement fleet addition logic here
-  }
+  
 
   recalculateItemPoints(item: InventoryItem): number {
     //console.log('Recalculating points for item:', item);

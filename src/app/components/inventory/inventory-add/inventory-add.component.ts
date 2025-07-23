@@ -29,29 +29,6 @@ export class InventoryAddComponent {
   @Output() inventoryUpdated = new EventEmitter<void>();
 
   @Output() shipAdded = new EventEmitter<void>();
-    
-
-  /*newShip: Ship = {
-    id: 0,
-    name: '',
-    faction: [],
-    attack: 0,
-    agility: 0,
-    hull: 0,
-    shields: 0,
-    actions: [],
-    maneuvers: [[], [], [], [], []],
-    size: 'small',
-    xws: '',
-    firing_arcs: [],
-    dial: []
-  };
-
-  factionInput = '';
-  actionInput = '';
-  arcInput = '';
-  dialInput = '';
-  maneuverInput: number[] = [];*/
 
   catalog: Ship[] = [];
 
@@ -91,7 +68,7 @@ export class InventoryAddComponent {
             quantity: existingItem.quantity + this.quantity
           };
 
-          this.inventoryService.updateInventoryItem(this.userId, existingItem.shipId.toString(), updatedItem)
+          this.inventoryService.updateInventoryItem(this.userId, existingItem.shipId, updatedItem)
             .subscribe({
               next: () => {
                 console.log('Inventory item updated.');

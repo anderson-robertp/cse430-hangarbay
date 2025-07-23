@@ -1,15 +1,17 @@
-<div class="container mt-4">
-  
+<div class="mt-4">
+  <h3 class="mb-4 text-center">Inventory List</h3>
+
+  <div *ngIf="inventory.length === 0" class="alert alert-info text-center">
+    Your inventory is empty. Please add ships from the catalog.
+  </div>
 
   <div class="row">
-    <!-- Left: Inventory list -->
-    <div class="col-md-7 border border-primary">
-      <h3 class="mb-4 text-center">Inventory List</h3>
-      <app-inventory-item *ngFor="let item of inventory" [item]="item" [userId]="userId"></app-inventory-item>
+    <div class="col-12">
+      <app-inventory-item
+        *ngFor="let item of inventory"
+        [item]="item"
+        [userId]="userId"
+      ></app-inventory-item>
     </div>
-
-    
-<!-- Empty inventory message -->
-<div *ngIf="inventory.length === 0" class="alert alert-info text-center">
-  Your inventory is empty. Please add ships from the catalog.
+  </div>
 </div>

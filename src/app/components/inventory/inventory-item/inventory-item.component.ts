@@ -45,7 +45,7 @@ export class InventoryItemComponent {
     this.inventoryService.getShips().subscribe(ships => this.ships = ships);
     this.pilotService.getPilots().subscribe(pilots => this.pilots = pilots);
     this.upgradeService.getUpgrades().subscribe(upgrades => this.upgrades = upgrades);
-    console.log(this.item)
+    //console.log(this.item)
   }
 
   getShip(id: number): Ship | undefined {
@@ -137,9 +137,9 @@ export class InventoryItemComponent {
   
       const fleetShip: FleetShip = {
         shipId: this.item.shipId,
-        quantity: this.item.quantity,
-        totalPoints: 0, // This will be calculated later
-        pilotId: this.item.selectedPilotId || undefined,
+        quantity: 1,
+        totalPoints: this.item.points,
+        pilotId: this.item.selectedPilotId,
         upgradeIds: []
       };
   

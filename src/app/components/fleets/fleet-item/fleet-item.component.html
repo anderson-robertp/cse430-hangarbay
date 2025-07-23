@@ -1,14 +1,27 @@
 <div class="card">
   <div class="card-body">
-    <h4 class="card-title">{{ fleet.name }}</h4>
+    <h3 class="card-title">{{ fleet.name }}</h3>
     <p class="card-text">{{ fleet.notes }}</p>
     <p class="card-text">Total Points: {{ getFleetPoints(fleet) }} pts</p>
     <ul class="list-group mb-3">
       <li *ngFor="let ship of fleet.ships" class="list-group-item">
-        {{ shipNames[ship.shipId] || 'Loading...' }} — {{ ship.totalPoints }} pts
+        {{ shipNames[ship.shipId] || 'Loading...' }} — {{ ship.totalPoints }} pts <br> 
+        Pilot: {{ getPilotNameById(ship.pilotId) }} <br>
+        Upgrades: <br>
+        <ul >
+          <li *ngFor="let upgrade of ship.upgradeIds" class="list-group-item">
+            {{ upgrade }}
+          </li>
+        </ul>
       </li>
     </ul>
-    <button class="btn btn-primary" (click)="onSelect()">Edit</button>
+    <button class="btn btn-primary" (click)="toggleEdit()">{{ isEditing ? 'Close' : 'Edit' }}</button>
     <button class="btn btn-danger" (click)="onDelete()">Delete</button>
   </div>
 </div>
+
+<app-fleet-edit 
+  *ngIf="isEditing"
+  [fleet]="fleet"
+  (close)="toggleEdit()">
+</app-fleet-edit>

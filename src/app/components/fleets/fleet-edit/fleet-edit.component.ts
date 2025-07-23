@@ -17,6 +17,7 @@ import { UpgradeService } from '../../upgrades/upgrade.service';
 export class FleetEditComponent {
   @Input() fleet!: Fleet;
   @Output() fleetSaved = new EventEmitter<Fleet>();
+  @Output() close = new EventEmitter<void>();
 
   availableShips: Ship[] = [];
 

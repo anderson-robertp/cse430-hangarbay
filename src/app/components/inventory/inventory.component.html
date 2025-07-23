@@ -3,12 +3,12 @@
   <div class="col-12">
     <div class="row justify-content-center g-4">
       <!-- Left: Inventory list -->
-      <div class="col-md-4">
+      <div class="col-md-6 col-lg-4">
         <app-inventory-list [reloadTrigger]="reloadCounter"></app-inventory-list>
       </div>
       <div class="col-md-2"></div>
       <!-- Right: Add ship from catalog -->
-      <div class="col-md-4">
+      <div class="col-md-5 col-lg-4">
         <div class="card shadow-sm">
           <div class="card-body border border-secondary">
             <app-inventory-add (shipAdded)="reloadInventory()" [userId]="userId"></app-inventory-add>

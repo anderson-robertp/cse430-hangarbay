@@ -1,6 +1,4 @@
 // models/fleet.model.ts
-import { Ship } from '../inventory/ship.model';
-
 export interface Fleet {
   id: number;
   name: string;
@@ -10,7 +8,7 @@ export interface Fleet {
 
 export interface FleetShip {
   shipId: number;
-  pilotId?: number;
+  pilotId: number;
   upgradeIds?: number[];
   quantity: number;
   totalPoints: number;

@@ -133,6 +133,7 @@ export class InventoryEditComponent {
       next: (updatedUser) => {
         console.log('Inventory updated:', updatedUser);
         this.inventoryUpdated.emit();  // Notify parent to reload
+        this.closeEditor();
       },
       error: (err) => {
         console.error('Error updating inventory:', err);

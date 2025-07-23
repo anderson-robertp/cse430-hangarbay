@@ -196,22 +196,22 @@ export class InventoryAddComponent {
 
   addShipToFleet(event: Event): void {
     event.preventDefault();
-    if (!this.selectedShipId || this.quantity <= 0) {
-      console.error('No ship selected or invalid quantity.');
+
+    if (!this.selectedShipId || this.quantity <= 0 || this.selectedPilotId === undefined) {
+      console.error('No ship selected, invalid quantity, or pilot not assigned.');
       return;
     }
 
     const fleetShip: FleetShip = {
       shipId: this.selectedShipId,
       quantity: this.quantity,
-      totalPoints: 0, // This will be calculated later
-      pilotId: this.selectedPilotId || undefined,
+      totalPoints: 0, // Will be calculated later
+      pilotId: this.selectedPilotId,
       upgradeIds: []
     };
 
     this.shipSelected.emit(fleetShip);
     this.resetForm();
-    
   }
 
   resetForm(): void {

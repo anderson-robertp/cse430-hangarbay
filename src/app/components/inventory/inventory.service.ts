@@ -83,7 +83,7 @@ export class InventoryService {
   }
 
   getShip(id: number): Observable<Ship> {
-    console.log("Ship Id: " + id)
+    console.log("Getting Ship Id: " + id)
     return this.http.get<Ship>(`${this.apiUrl}/${id}`);
   }
 
